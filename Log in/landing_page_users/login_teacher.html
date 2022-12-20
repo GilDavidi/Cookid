@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cookid</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous"></script>
+    <script src=""></script>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Favicon -->
+    <link href="./favicon.ico" rel="icon" />
+  </head>
+
+  <body>
+    <!-- Navbar Start -->
+    <h1>שלום מורה </h1>
+    <h2>אנא מלא שם משתמש וסיסמא:</h2>
+    <form method="post" autocomplete="on">
+      <div class="user-box">
+        <label>שם משתמש</label>
+        <input type="text" name="user_name" required="">
+      </div>
+      <div class="user-box">
+        <label>סיסמא</label>
+        <input type="password" name="password" required="">
+      </div>
+      <div id="failmsg"></div>
+      <div class="button_style">
+        <input class="button" type="submit" value="אשר" name="submit">
+      </div>
+    </form>
+
+
+
+  </body>
+</html>
