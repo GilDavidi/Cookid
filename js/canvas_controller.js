@@ -1,25 +1,18 @@
 import {handleEvent, startGame} from "./main_controller.js"
 
-// Prepeare canvas and context
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
-
+// Prepare canvas and context
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 const FLOOR_LVL = canvas.height - 10
-const PLAYER_W = 10;
-const PLAYER_H = 10;
-export  const canvas_width = canvas.getBoundingClientRect().width;
-export  const canvas_height = canvas.getBoundingClientRect().height;
-
-
-
+export let frames = 0;
 // Rendering method
 export const render = (gameObjects) => {
-  // console.log("->\tRendering...")
-
+  frames++;
+  // console.log(frames)
+  clearField();
   drawField();
   drawFloor();
   drawGameObjects(gameObjects);
-
 }
 
 const drawFloor = () => {
@@ -40,24 +33,15 @@ const drawField = () => {
 }
 
 const drawGameObjects = (gameObjects) => {
-  // console.log(gameObjects)
-  // console.log("->\tRendering Player")
   gameObjects.forEach((object) => {
-    ctx.fillRect(
-        object.get_point().get_x(),
-        FLOOR_LVL -  PLAYER_H,
-        PLAYER_W, PLAYER_H)
+    ctx.fillRect(object.get_x(), object.get_y(), object.getWidth(), object.getHeight())
   })
   ctx.stroke();
 
 }
 
-document.onkeydown = function (event){
-  clearField();
-  handleEvent(event)
-}
+export const getCurrentFrames = () => frames;
 
+document.onkeydown = (event) => handleEvent(event)
+startGame(canvas.width, canvas.height);
 
-
-
-startGame();
