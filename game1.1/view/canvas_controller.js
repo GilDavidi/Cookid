@@ -1,11 +1,14 @@
 import {handleEvent, startGame} from "../control/main_controller.js"
+
 // Prepeare canvas and context
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 
-const FLOOR_LVL = canvas.height-5
+const FLOOR_LVL = canvas.height - 10
 const PLAYER_W = 10;
 const PLAYER_H = 10;
+export  const canvas_width = canvas.getBoundingClientRect().width;
+export  const canvas_height = canvas.getBoundingClientRect().height;
 
 
 
@@ -42,12 +45,11 @@ const drawGameObjects = (gameObjects) => {
   gameObjects.forEach((object) => {
     ctx.fillRect(
         object.get_point().get_x(),
-        FLOOR_LVL - object.get_point().get_y() + PLAYER_H,
+        FLOOR_LVL -  PLAYER_H,
         PLAYER_W, PLAYER_H)
   })
-
-  // ctx.fillRect(PLAYER_W, FLOOR_LVL - PLAYER_H, PLAYER_W, PLAYER_H)
   ctx.stroke();
+
 }
 
 document.onkeydown = function (event){
