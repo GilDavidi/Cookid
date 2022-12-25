@@ -1,9 +1,11 @@
+const URL = window.location.origin;
 
 $("document").ready(() => {
 
     $('input[name="teacher_button"]').click((e) => {
         e.preventDefault();
-        window.location.replace(`login_teacher.html`);
+        console.log(`${URL}/login/loginTeacher.html`);
+        window.location.replace(`${URL}/login/loginTeacher.html`);
     })
 
     $('input[name="submit"]').click((e) => {
