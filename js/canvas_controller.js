@@ -1,4 +1,4 @@
-import {handleEvent, startGame} from "../control/main_controller.js"
+import {handleEvent, startGame} from "./main_controller.js"
 
 // Prepeare canvas and context
 let canvas = document.getElementById("canvas");
@@ -19,7 +19,7 @@ export const render = (gameObjects) => {
   drawField();
   drawFloor();
   drawGameObjects(gameObjects);
-  
+
 }
 
 const drawFloor = () => {

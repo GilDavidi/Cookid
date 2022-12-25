@@ -1,6 +1,6 @@
-import {render} from "../view/canvas_controller.js"
-import Player from "../model/Player.js";
-import Point from "../model/Point.js";
+import {render} from "./canvas_controller.js"
+import Player from "./Player.js";
+import Point from "./Point.js";
 let gameRunning = true
 const player = new Player(new Point(50, 50), 0, 0, 'none')
 const gameObjects = [player]
