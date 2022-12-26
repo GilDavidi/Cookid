@@ -1,19 +1,14 @@
-import Point from "./Point.js";
-// let canvas = document.getElementById('mycanvas');
-// let ctx = canvas.getContext("2d");
-// let playerlist = {};
-// let index=0;
-// const canvas_width = canvas.scrollWidth;
-// const canvas_height = canvas.scrollHeight;
-//
-// console.log("the canvas width  and height : " , canvas.scrollWidth , canvas.scrollHeight);
+import {getCurrentFrames} from "./canvas_controller.js";
 
-export  default class Player {
+export default class Player {
+
+    speed = 3;
+    PLAYER_W = 10;
+    PLAYER_H = 10;
+
 
     constructor(point, color) {
         this.set_point(point)
-        // this.set_spdx(spdx);
-        // this.set_spdy(spdy);
         console.log(`NEW PLAYER CRATED AT -> ${point}`)
     }
 
@@ -22,48 +17,22 @@ export  default class Player {
 
     toString = () => `Player -> ${this.point.toString()}`
     get_point = () => this.point
-
+    get_x = () => this.point.get_x();
+    get_y = () => this.point.get_y();
     moveUp = () => {
-        console.log("press the up");
-
-        this.set_point(new Point(this.point.get_x(), this.point.get_y() + 1))
-    }
-    moveDown = () => {
-        console.log("press the up");
-        this.set_point(new Point(this.point.get_x(), this.point.get_y() - 1))
-    }
-    moveLeft = () =>
-    {
-        console.log("press the left");
-        if(this.point.get_x() -1 > 3 )
-        {
-            this.set_point(new Point(this.point.get_x() - 1, this.point.get_y()));
-        }
-        else
-        {
-            console.log("x is less then zero");
+        const actionFrame = getCurrentFrames()
+        while(getCurrentFrames() < actionFrame + 20) {
+            setInterval( () => {this.point.set_y(this.point.get_y() - this.speed)}, 10)
         }
 
-    }
-    moveRight = () =>
-    {
-        if(this.point.get_x() + 1 < 289 )
-        {
-            this.set_point(new Point(this.point.get_x() + 1, this.point.get_y()));
-        }
-        else
-        {
-            console.log("x is more then 289");
-        }
 
     }
-
-    SpaceAction = () =>
-    {
-        console.log("you press the Spacebutton action is on ")
-    }
-    BackspaceButton = () => {
-        console.log("you press the Space_button")
-    }
+    moveDown = () => this.point.set_y(this.point.get_y() + this.speed)
+    moveLeft = () => this.point.set_x(this.point.get_x() - this.speed)
+    moveRight = () => this.point.set_x(this.point.get_x() + this.speed)
+    SpaceAction = () => console.log("you press the SpaceBar action is on ")
+    BackspaceButton = () => console.log("you press the Space_button")
+    getWidth = () => this.PLAYER_W
+    getHeight = () => this.PLAYER_H
 
 }
