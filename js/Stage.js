@@ -1,5 +1,5 @@
-import Point from "./Point.js";
-import Player from "./Player.js";
+import Point from "../GameServer/models/Point.js";
+import Player from "../GameServer/models/Player.js";
 
 export default class Stage {
 

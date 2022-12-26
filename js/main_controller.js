@@ -1,6 +1,6 @@
 import {render} from "./canvas_controller.js"
-import Player from "./Player.js";
-import Point from "./Point.js";
+import Player from "../GameServer/models/Player.js";
+import Point from "../GameServer/models/Point.js";
 import Stage from "./Stage.js";
 let gameRunning = true
 const player = new Player(new Point(50, 50), 0, 0, 'none')
