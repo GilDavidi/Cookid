@@ -20,10 +20,5 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 //game
 app.use('/game',gameRouter);
 
-
-
-
-
-
 // create server
 app.listen(3000, () => {console.log("server its listening on port 3000")});

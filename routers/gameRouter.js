@@ -1,7 +1,9 @@
 const express = require('express');
 const gameController= require("../controllers/gameController");
-const fileLoaderRouter = express.Router();
+const gameRouter = express.Router();
 
-fileLoaderRouter.get('/',gameController.loadGame);
+gameRouter.get('/',gameController.loadGame);
+gameRouter.get('/StartGame',gameController.StartGame);
+gameRouter.get('/Update',gameController.Update);
 
-module.exports = fileLoaderRouter;
+module.exports = gameRouter;
