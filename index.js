@@ -14,6 +14,7 @@ app.use(cors());
 app.use('/', fileLoaderRouter);
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
+app.use('/images', express.static(__dirname + '/images'));
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
 //game
