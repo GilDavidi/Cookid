@@ -1,4 +1,4 @@
-import {getCurrentFrames} from "../../js/canvas_controller.js";
+import {getCurrentFrames} from "./canvas_controller.js";
 
 export default class Player {
 
