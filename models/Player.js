@@ -1,13 +1,13 @@
 
 module.exports= class Player {
-
     speed = 3;
     PLAYER_W = 10;
     PLAYER_H = 10;
 
 
     constructor(point, color) {
-        this.set_point(point)
+        this.set_point(point);
+        this.set_color(color);
         console.log(`NEW PLAYER CRATED AT -> ${point}`)
     }
 

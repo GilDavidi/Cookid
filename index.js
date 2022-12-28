@@ -1,6 +1,7 @@
 const express = require('express');
 const fileLoaderRouter =require('./routers/fileLoaderRouter');
 const gameRouter =require('./routers/gameRouter');
+const socket = require('socket.io');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({
@@ -21,4 +22,12 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 app.use('/game',gameRouter);
 
 // create server
-app.listen(3000, () => {console.log("server its listening on port 3000")});
+const server =app.listen(3001, () => {console.log("server its listening on port 3001")});
+
+const io = socket(server);
+// Runs when client connect to our sever
+io.on('connection', socket => {
+    console.log("New player enter to the game");
+
+});
+
