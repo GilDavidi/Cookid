@@ -5,6 +5,8 @@ a[href], input[type='submit'], input[type='image'], label[for], select, button, 
 body {
     margin: 0;
     line-height: normal;
+    font-family: var(--font-assistant);
+
 }
 .group-child {
     position: absolute;
