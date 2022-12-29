@@ -34,6 +34,7 @@ const keyListener =(event) => {
             .fail((xhr, status, error) => {
                 console.error("failed send to server " + error);
             });
+
     }
 
 
@@ -60,39 +61,38 @@ const keyListener =(event) => {
           console.error("failed send to server " + error);
       });
 
-  setInterval(() => render(), 1000/100);
+}
+
+const gameLoop =() => {
+    drawField();
+    drawFloor();
+    drawPlayers();
+    window.requestAnimationFrame(gameLoop);
 }
 
 
 // Prepare canvas and context
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const FLOOR_LVL = canvas.height - 10
-// Rendering method
-const render = () => {
-  //clearField();
-  drawField();
-  drawFloor();
-  drawPlayers();
-}
-const clearField = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-}
+
+const FLOOR_LVL = canvas.height - 10;
+
 const drawField = () => {
-    ctx.fillStyle = "white";
-    ctx.strokeRect(0, 0, canvas.width, canvas.height)
+    ctx.fillStyle = "green";
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
 }
 
 const drawFloor = () => {
   ctx.beginPath();
+  ctx.strokeStyle = "#202830";
   ctx.moveTo(0, FLOOR_LVL);
   ctx.lineTo(canvas.width, FLOOR_LVL);
   ctx.stroke();
-  ctx.closePath();
+
 }
 
 const drawPlayers = () => {
-
+    ctx.beginPath();
   $.get(`${URL}/game/GetPlayers`)
       .done(PlayersJSON => {
           playersArray=JSON.parse(JSON.stringify(PlayersJSON));
@@ -104,10 +104,12 @@ const drawPlayers = () => {
   {
       for(let key in playersArray.players)
       {
-             ctx.fillRect(playersArray.players[key].x, playersArray.players[key].y, playersArray.players[key].width, playersArray.players[key].height);
+          ctx.fillStyle = "#ff0000";// hex for red
+          ctx.rect(playersArray.players[key].x, playersArray.players[key].y, playersArray.players[key].width, playersArray.players[key].height);
+          ctx.fill();
       }
-      ctx.stroke();
   }
+
 
 }
 
@@ -116,6 +118,8 @@ window.addEventListener("keydown", keyListener)
 window.addEventListener("keyup", keyListener);
 
 startGame();
+window.requestAnimationFrame(gameLoop);
+
 
 
 
