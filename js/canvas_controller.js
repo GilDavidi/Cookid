@@ -5,8 +5,42 @@ let playerJson={};
 playerJson.id=userId;
 const URL = window.location.origin;
 let playersArray;
+let controller = {
+    left:false,
+    right:false,
+    up:false
+};
+const keyListener =(event) => {
+    let key_state = (event.type == "keydown")?true:false;
+    switch(event.keyCode) {
 
-export const startGame = (width, height) =>
+        case 37:// left key
+            controller.left = key_state;
+            break;
+        case 38:// up key
+            controller.up = key_state;
+            break;
+        case 39:// right key
+            controller.right = key_state;
+            break;
+
+    }
+    playerJson.controller=controller;
+    if(controller.left==true  || controller.right==true || controller.up==true ) {
+        $.post(`${URL}/game/MovePlayer`, playerJson)
+            .done(serverMessage => {
+                console.log(serverMessage);
+            })
+            .fail((xhr, status, error) => {
+                console.error("failed send to server " + error);
+            });
+    }
+
+
+}
+
+
+ const startGame = () =>
 {
   $.get(`${URL}/game/StartGame`)
       .done(serverMessage=>
@@ -26,49 +60,27 @@ export const startGame = (width, height) =>
           console.error("failed send to server " + error);
       });
 
-  setInterval(() => render(), 1000/60);
+  setInterval(() => render(), 1000/100);
 }
 
-//player presses buttons and the object make actions
-export const handleEvent = (e) => {
-    //if(e.code == "ArrowUp") mission.playerMoveUp();
-    // if(e.code == "ArrowDown") mission.playerMoveDown();
-    if (e.code == "ArrowLeft")
-    {
-        $.post(`${URL}/game/MovePlayerLeft`,playerJson)
-            .done(serverMessage=>
-            {
-                console.log(serverMessage);
-            })
-            .fail((xhr, status, error) => {
-                console.error("failed send to server " + error);
-            });
-    }
-  if(e.code == "ArrowRight")
-  {
-      $.post(`${URL}/game/MovePlayerRight`,playerJson)
-          .done(serverMessage=>
-          {
-              console.log(serverMessage);
-          })
-          .fail((xhr, status, error) => {
-              console.error("failed send to server " + error);
-          });
-  }
-}
 
 // Prepare canvas and context
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const FLOOR_LVL = canvas.height - 10
-export let frames = 0;
 // Rendering method
-export const render = () => {
-  frames++;
-  clearField();
+const render = () => {
+  //clearField();
   drawField();
   drawFloor();
   drawPlayers();
+}
+const clearField = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+}
+const drawField = () => {
+    ctx.fillStyle = "white";
+    ctx.strokeRect(0, 0, canvas.width, canvas.height)
 }
 
 const drawFloor = () => {
@@ -77,15 +89,6 @@ const drawFloor = () => {
   ctx.lineTo(canvas.width, FLOOR_LVL);
   ctx.stroke();
   ctx.closePath();
-}
-
-const clearField = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
-}
-
-const drawField = () => {
-  ctx.fillStyle = "white";
-  ctx.strokeRect(0, 0, canvas.width, canvas.height)
 }
 
 const drawPlayers = () => {
@@ -108,10 +111,11 @@ const drawPlayers = () => {
 
 }
 
-export const getCurrentFrames = () => frames;
 
-document.onkeydown = (event) => handleEvent(event)
-startGame(canvas.width, canvas.height);
+window.addEventListener("keydown", keyListener)
+window.addEventListener("keyup", keyListener);
+
+startGame();
 
 
 

@@ -1,6 +1,6 @@
 const path = require("path");
-const Mission = require("../models/Mission.js");
-let mission= new Mission(150, 300);
+const Mission = require("../models/MissionBridge.js");
+let mission= new Mission(140, 300);
 module.exports = {
     loadGame: (req, res) => {
         res.sendFile(path.join(__dirname, '../game/view/MissionCanvas.html'));
@@ -16,12 +16,8 @@ module.exports = {
         mission.addNewPLayer(req.body.id);
         res.send("new player add with id " + req.body.id);
     },
-    MovePlayerLeft: (req,res) => {
-        mission.getPlayer(req.body.id).moveLeft();
-        res.send("player id " + req.body.id+" move left");
-    },
-    MovePlayerRight: (req,res) => {
-        mission.getPlayer(req.body.id).moveRight();
-        res.send("player id " + req.body.id+" move right");
-    }
+    MovePlayer: (req,res) => {
+            mission.playerMove(req.body.id,req.body.controller);
+            res.send("player id " + req.body.id+" move");
+        }
 }
