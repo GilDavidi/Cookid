@@ -3,12 +3,15 @@ const fileLoaderRouter =require('./routers/fileLoaderRouter');
 const gameRouter =require('./routers/gameRouter');
 const socket = require('socket.io');
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }))
 
 const cors = require('cors');
+const path = require("path");
+const server = require("express/lib/application");
 app.use(cors());
 
 //load files
@@ -18,16 +21,31 @@ app.use('/js', express.static(__dirname + '/js'));
 app.use('/images', express.static(__dirname + '/images'));
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
+app.use(express.static(path.join(__dirname, 'frontend')))
+
 //game
 app.use('/game',gameRouter);
 
 // create server
-const server =app.listen(3001, () => {console.log("server its listening on port 3001")});
+ serverExpress = app.listen(3001, () => {
+    console.log("server its listening on port 3001");});
 
-const io = socket(server);
+
+const io = socket(serverExpress);
 // Runs when client connect to our sever
-io.on('connection', socket => {
-    console.log("New player enter to the game");
+let connection=0;
 
-});
+io.on('connection',(client) =>
+    {
+        console.log("New player enter to the game");
+        connection++;
+        client.on('disconnect', function() {
+            connection--;
+        });
+        console.log("Number of connected players " +connection);
+    }
+
+);
+
+
 

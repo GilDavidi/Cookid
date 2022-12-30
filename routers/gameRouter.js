@@ -6,9 +6,6 @@ gameRouter.get('/',gameController.loadGame);
 gameRouter.get('/StartGame',gameController.StartGame);
 gameRouter.get('/GetPlayers',gameController.GetPlayers);
 gameRouter.post('/AddNewPlayer',gameController.AddNewPlayer);
-// gameRouter.post('/MovePlayerLeft',gameController.MovePlayerLeft);
-// gameRouter.post('/MovePlayerRight',gameController.MovePlayerRight);
-
 gameRouter.post('/MovePlayer',gameController.MovePlayer);
 
 module.exports = gameRouter;
