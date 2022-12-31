@@ -1,9 +1,13 @@
+require("dotenv").config({path: 'config/.env'});
+//data base
+const db = require('./mongoDB/dbConnection');
 const express = require('express');
 const fileLoaderRouter =require('./routers/fileLoaderRouter');
 const gameRouter =require('./routers/gameRouter');
 const socket = require('socket.io');
 const app = express();
 
+db.connectToDB();
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
@@ -25,6 +29,9 @@ app.use(express.static(path.join(__dirname, 'frontend')))
 
 //game
 app.use('/game',gameRouter);
+
+//login
+app.use('/login',loginRouter);
 
 // create server
  serverExpress = app.listen(3001, () => {

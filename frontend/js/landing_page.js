@@ -12,12 +12,12 @@ $("document").ready(() => {
         window.location.replace(`login/loginPupil.html`);
     })
 
-    $('input[name="submit"]').click((e) => {
+    $('input[name="submitTeacherDetails"]').click((e) => {
         e.preventDefault();
         let json= {};
          json.password= $('input[name="password"]').val();
          json.userName= $('input[name="user_name"]').val();
-        $.post('http://localhost:3000/user_check', json)
+        $.post('http://localhost:3001/user_check', json)
             .done((msg) =>
             {
                 console.log(msg);
