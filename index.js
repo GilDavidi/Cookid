@@ -4,6 +4,7 @@ const db = require('./mongoDB/dbConnection');
 const express = require('express');
 const fileLoaderRouter =require('./routers/fileLoaderRouter');
 const gameRouter =require('./routers/gameRouter');
+const loginRouter =require('./routers/loginRouter')
 const socket = require('socket.io');
 const app = express();
 
