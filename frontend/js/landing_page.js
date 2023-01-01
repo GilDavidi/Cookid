@@ -12,19 +12,39 @@ $("document").ready(() => {
         window.location.replace(`login/loginPupil.html`);
     })
 
-    $('input[name="submit"]').click((e) => {
+    $('input[name="submitTeacherDetails"]').click((e) => {
         e.preventDefault();
-        let json= {};
-         json.password= $('input[name="password"]').val();
-         json.userName= $('input[name="user_name"]').val();
-        $.post('http://localhost:3000/user_check', json)
+        let jsonTeacher= {};
+         jsonTeacher.password= $('input[name="password"]').val();
+         jsonTeacher.userName= $('input[name="user_name"]').val();
+        $.post('http://localhost:3001/login/checkUserTeacher', jsonTeacher)
             .done((msg) =>
             {
-                console.log(msg);
+                if (msg == "The user exist")
+                {
+                    window.location.replace(`../groups/dividingGroupsTeacher.html`);
+                }
             })
             .fail((xhr, status, error) => {
                 console.error("failed send to server" + error);
            });
         });
+    $('input[name="submitPupilDetails"]').click((e) => {
+        e.preventDefault();
+        let jsonPupil= {};
+        jsonPupil.userName= $('input[name="user_name"]').val();
+        $.post('http://localhost:3001/login/checkUserPupil', jsonPupil)
+            .done((msg) =>
+            {
+                if (msg == "The user exist")
+                {
+                    window.location.replace(`../groups/waitingPagePupil.html`);
+                }
+            })
+            .fail((xhr, status, error) => {
+                console.error("failed send to server" + error);
+            });
+    });
+
 
 });

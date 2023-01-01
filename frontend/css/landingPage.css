@@ -126,3 +126,16 @@ input[type="submit"]
     --br-md: 9px;
 }
 
+.topic {
+    position: relative;
+    top: 80px;
+    display: block;
+    text-align: center;
+    font-size: 50px;
+}
+
+table {
+    position: relative;
+    display: block;
+}
+
