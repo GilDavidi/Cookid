@@ -1,6 +1,7 @@
 const path = require("path");
-const Mission = require("../models/MissionBridge.js");
-let mission= new Mission(140, 300);
+const Mission = require("../models/MissionPaint.js");
+const User = require("../mongoDB/models/users");
+let mission= new Mission();
 module.exports = {
     loadGame: (req, res) => {
         res.sendFile(path.join(__dirname, '../frontend/view_game/MissionCanvas.html'));
@@ -9,16 +10,28 @@ module.exports = {
         console.log("Server Game Started");
         res.send("Client Game Started");
     },
-    GetPlayers: (req,res) => {
-        let playersJSON =mission.getPlayersJSON();
-            res.send(playersJSON);
+    GetBoard: (req,res) => {
+            res.send(mission.getBoard());
     },
     AddNewPlayer: (req,res) => {
-        mission.addNewPLayer(req.body.id);
+        // mission.addNewPLayer(req.body.id);
+        console.log(req.body.id);
         res.send("new player add with id " + req.body.id);
     },
-    MovePlayer: (req,res) => {
-        mission.SetPlayerPos(req.body.id,req.body.point);
-        res.send("player "+req.body.id+ "move to " + req.body.point);
+    GetPlayerName: (req, res) => {
+        let id = req.body.id;
+        User.findOne({'id': id})
+            .then(result => {
+                if (result) {
+                    res.send(result.user_name);
+                } else {
+                    res.send("The user does not exist, try again");
+                }
+            })
+            .catch(err => console.log(err));
     }
+    // MovePlayer: (req,res) => {
+    //     mission.SetPlayerPos(req.body.id,req.body.point);
+    //     res.send("player "+req.body.id+ "move to " + req.body.point);
+    // }
 }

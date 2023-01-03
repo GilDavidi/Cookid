@@ -4,8 +4,9 @@ const gameRouter = express.Router();
 
 gameRouter.get('/',gameController.loadGame);
 gameRouter.get('/StartGame',gameController.StartGame);
-gameRouter.get('/GetPlayers',gameController.GetPlayers);
+gameRouter.get('/GetBoard',gameController.GetBoard);
 gameRouter.post('/AddNewPlayer',gameController.AddNewPlayer);
-gameRouter.post('/MovePlayer',gameController.MovePlayer);
+gameRouter.post('/GetPlayerName',gameController.GetPlayerName);
+
 
 module.exports = gameRouter;
