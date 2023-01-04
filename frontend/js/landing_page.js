@@ -18,11 +18,23 @@ $("document").ready(() => {
          jsonTeacher.password= $('input[name="password"]').val();
          jsonTeacher.userName= $('input[name="user_name"]').val();
         $.post('http://localhost:3001/login/checkUserTeacher', jsonTeacher)
-            .done((msg) =>
+            .done((userCheckServer) =>
             {
-                if (msg == "The user exist")
+                if (userCheckServer == "The user exist")
                 {
-                    window.location.replace(`../groups/dividingGroupsTeacher.html`);
+                    $.get('http://localhost:3001/groups/createGroups')
+                        .done((createGroupsMsg) =>
+                            {
+                                if(createGroupsMsg=="Create Groups was succeed")
+                                {
+                                    window.location.replace(`../groups/dividingGroupsTeacher.html`);
+                                }
+                            })
+                        .fail(
+                            (error) => {
+                                console.error("failed send to server" + error);
+                            });
+
                 }
             })
             .fail((xhr, status, error) => {
@@ -36,10 +48,11 @@ $("document").ready(() => {
         $.post('http://localhost:3001/login/checkUserPupil', jsonPupil)
             .done((msg) =>
             {
-                if (msg == "The user exist")
+                if (msg != "The user does not exist, try again")
                 {
-                    window.location.replace(`../groups/waitingPagePupil.html`);
+                    window.location.replace(`../groups/waitingPagePupil.html?userName=${msg}`);
                 }
+
             })
             .fail((xhr, status, error) => {
                 console.error("failed send to server" + error);

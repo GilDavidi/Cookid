@@ -17,6 +17,7 @@ app.use(express.urlencoded({
 const cors = require('cors');
 const path = require("path");
 const server = require("express/lib/application");
+const groupsRouter = require("./routers/groupsRouter");
 app.use(cors());
 
 //load files
@@ -33,6 +34,10 @@ app.use('/game',gameRouter);
 
 //login
 app.use('/login',loginRouter);
+
+//groups
+app.use('/groups',groupsRouter);
+
 
 // create server
  serverExpress = app.listen(3001, () => {

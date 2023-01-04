@@ -17,7 +17,8 @@ module.exports = {
         User.findOne({'user_name': req.body.userName})
             .then(result => {
                 if (result) {
-                    res.send("The user exist");
+                    console.log(result);
+                    res.send(req.body.userName);
                 } else {
                     res.send("The user does not exist, try again");
                 }

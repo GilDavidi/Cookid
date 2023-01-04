@@ -1,43 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <title>Cookid</title>
     <meta charset="UTF-8">
-    <title>Divide groups</title>
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
-
-    <link rel="stylesheet" href="../css/landingPage.css" />
-    <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Assistant:wght@700&display=swap"
-    />
+    <link rel="stylesheet" href="../css/diviidngGroupsTecher.css">
+    <!-- Favicon -->
+    <link href="../favicon.ico" rel="icon" />
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous"></script>
+    <script src="../js/dividingGroupsTeacher.js.js"></script>
 </head>
 <body>
-    <div class="desktop-1">
-        <div class="rectangle-parent">
-            <header>
-                <div class="group-child"></div>
-                <img
-                        class="artboard-14x-1-1"
-                        src="../images/logo.png"
-                />
-            </header>
-            <div class="group-item"></div>
-            <b class="topic">:חלוקה לקבוצות</b>
-            <div class="frame-parent">
-                <table>
-                    <tr>
-                        <td> גיל דוידי</td>
-                        <td> ציון </td>
-                        <td> משחק </td>
-                    </tr>
-                    <tr>
-                        <td> Cell 1</td>
-                        <td> Cell 2</td>
-                        <td> Cell 3</td>
-                    </tr>
-                </table>
-            </div>
+<div class="container">
+    <h1>חלוקה לקבוצות</h1>
+    <table id="student-table">
+        <tr>
+            <th>שם התלמיד</th>
+        </tr>
+        <tr>
+            <td draggable="true" ondragstart="drag(event)">Alice</td>
+        </tr>
+        <tr>
+            <td draggable="true" ondragstart="drag(event)">Bob</td>
+        </tr>
+        <tr>
+            <td draggable="true" ondragstart="drag(event)">Charlie</td>
+        </tr>
+        <!-- Add more rows for additional students -->
+    </table>
+
+    <div class="group-container">
+        <!-- Add six group divs -->
+        <div class="group" id="group1" ondrop="drop(event)" ondragover="allowDrop(event)" >
+            <h3>Group 1</h3>
+            <ul></ul>
+        </div>
+        <div class="group" id="group2" ondrop="drop(event)"  ondragover="allowDrop(event)" >
+            <h3>Group 2</h3>
+            <ul></ul>
+        </div>
+        <div class="group"  id="group3"ondrop="drop(event)"   ondragover="allowDrop(event)" >
+            <h3>Group 3</h3>
+            <ul></ul>
+        </div>
+        <div class="group"  id="group4"ondrop="drop(event)"  ondragover="allowDrop(event)">
+            <h3>Group 4</h3>
+            <ul></ul>
+        </div>
+        <div class="group"  id="group5"ondrop="drop(event)"  ondragover="allowDrop(event)">
+            <h3>Group 5</h3>
+            <ul></ul>
+        </div>
+        <div class="group" id="group6" ondrop="drop(event)"   ondragover="allowDrop(event)" >
+            <h3>Group 6</h3>
+            <ul></ul>
         </div>
     </div>
+</div>
+<div class="input-section">
+    <input type="submit" value="Save Groups" onclick="saveGroups()">
+</div>
+
 </body>
-</html>
+
+
