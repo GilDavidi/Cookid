@@ -211,6 +211,7 @@ const draw = () => {
         ctx.stroke();
         ctx.closePath();
     }
+
 const color = (obj) => {
         switch (obj.id) {
             case "green":
@@ -238,6 +239,13 @@ const color = (obj) => {
         if (x == "white") y = 14;
         else y = 2;
 
+    }
+    const draw_rec = () => {
+        console.log("draw rectangle on canvas");
+        ctx.beginPath();
+        ctx.fillStyle = x;
+        ctx.fillRect(currX, currY, 2, 2);
+        ctx.closePath();
     }
 // NOT IN USE
 

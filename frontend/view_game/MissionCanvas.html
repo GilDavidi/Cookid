@@ -1,47 +1,97 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1, width=device-width" />
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1, width=device-width" />
 
-  <link rel="stylesheet" href="../css/game.css" />
-  <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Assistant:wght@700&display=swap"
-  />
-  <script
-          src="https://code.jquery.com/jquery-3.6.1.js"
-          integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-          crossorigin="anonymous"></script>
-</head>
-<body>
-<div class="desktop-1">
-  <div class="rectangle-parent">
-    <header>
-      <div class="group-child"></div>
-      <img
-              class="artboard-14x-1-1"
-              src="../images/logo.png"
-      />
-    </header>
-    <div class="frame-parent">
-      <div>
-        <canvas id="can" width="700" height="500" style="position:relative;border:2px solid;"></canvas>
-      </div>
-      <div id="ColorSelection">
-        <div class="paint" style="background:green;" id="green" onclick="color(this)"></div>
-        <div class="paint" style="background:blue;" id="blue" onclick="color(this)"></div>
-        <div class="paint" style="background:red;" id="red" onclick="color(this)"></div>
-        <div class="paint" style="background:yellow;" id="yellow" onclick="color(this)"></div>
-        <div class="paint" style="background:orange;" id="orange" onclick="color(this)"></div>
-        <div class="paint" style="background:black;" id="black" onclick="color(this)"></div>
-<!--        <div style="position:relative;top:20%;left:43%;">Eraser</div>-->
-        <div class="paint"style="background:white;" id="white" onclick="color(this)"></div>
-      </div>
+		<link rel="stylesheet" href="../css/game.css" />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Assistant:wght@700&display=swap"
+		/>
+		<script
+			src="https://code.jquery.com/jquery-3.6.1.js"
+			integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+			crossorigin="anonymous"
+		></script>
+	</head>
+	<body>
+		<div class="desktop-1">
+			<div class="rectangle-parent">
+				<header>
+					<div class="group-child"></div>
+					<img class="artboard-14x-1-1" src="../images/logo.png" />
+				</header>
 
-  </div>
-</div>
-<script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" crossorigin="anonymous"></script>
-<script src="../js/canvas_controller.js"></script>
-</body>
+				<div class="frame-parent">
+					<h1>Timer</h1>
+
+					<div id="drawContainer">
+						<img class="artboard-14x-1-1" src="../images/logo.png" />
+
+						<div id="canvasContainer">
+							<div id="ColorSelection">
+								<div
+									class="paint"
+									style="background: green"
+									id="green"
+									onclick="color(this)"
+								></div>
+								<div
+									class="paint"
+									style="background: blue"
+									id="blue"
+									onclick="color(this)"
+								></div>
+								<div
+									class="paint"
+									style="background: red"
+									id="red"
+									onclick="color(this)"
+								></div>
+								<div
+									class="paint"
+									style="background: yellow"
+									id="yellow"
+									onclick="color(this)"
+								></div>
+								<div
+									class="paint"
+									style="background: orange"
+									id="orange"
+									onclick="color(this)"
+								></div>
+								<div
+									class="paint"
+									style="background: black"
+									id="black"
+									onclick="color(this)"
+								></div>
+								<!--        <div style="position:relative;top:20%;left:43%;">Eraser</div>-->
+								<div
+									class="paint"
+									style="background: white"
+									id="white"
+									onclick="color(this)"
+								></div>
+							</div>
+
+							<canvas
+								id="can"
+								width="800"
+								height="600"
+								style="position: relative; border: 2px solid black"
+							></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script
+			src="https://cdn.socket.io/4.5.4/socket.io.min.js"
+			integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI"
+			crossorigin="anonymous"
+		></script>
+		<script src="../js/canvas_controller.js"></script>
+	</body>
 </html>
