@@ -7,6 +7,8 @@ const gameRouter =require('./routers/gameRouter');
 const loginRouter =require('./routers/loginRouter')
 const socket = require('socket.io');
 const app = express();
+const axios = require('axios').default;
+let pupilList={};
 
 db.connectToDB();
 app.use(express.json());
@@ -47,18 +49,42 @@ app.use('/groups',groupsRouter);
 const io = socket(serverExpress);
 // Runs when client connect to our sever
 let connection=0;
-
+let teacherSocketId;
 io.on('connection',(client) =>
     {
-        console.log("New player enter to the game");
         connection++;
-        client.on('disconnect', function() {
+        client.on('disconnect', ()=> {
             connection--;
         });
-        console.log("Number of connected players " +connection);
+
+        client.on('pupilConnected',(pupilDetails)=>
+        {
+            let pupilJSONDetails={};
+            pupilJSONDetails.id=pupilDetails.id;
+            pupilJSONDetails.name=pupilDetails.name;
+            axios.post('http://localhost:3001/groups/addPupil', pupilJSONDetails)
+                .then( (pupilListResponse)=> {
+                    if(teacherSocketId)
+                    {
+                        io.to(teacherSocketId).emit('updatePupilList',pupilListResponse.data);
+                    }
+                    console.log(`Pupil with id ${pupilDetails.id} connected`);
+                })
+                .catch(err => {
+                    console.error(err.message);
+                })
+
+
+        })
+
+        client.on('teacherConnected',() =>{
+            teacherSocketId=client.id;
+            console.log("The Teacher connected")});
     }
 
 );
+
+
 
 
 
