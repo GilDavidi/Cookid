@@ -1,3 +1,40 @@
+const socket = io("http://localhost:3001");
+
+
+socket.emit('teacherConnected');
+
+
+
+$("document").ready(() => {
+    let table = document.getElementById('student-table');
+
+    socket.on('updatePupilList',(pupilList)=>{
+
+            // loop through the array
+        for (let i = 0; i < pupilList.pupil.length; i++) {
+            // create a new row
+            let row = table.insertRow();
+
+            // create a new cell
+            let cell = row.insertCell();
+
+
+            // set the cell as draggable and add the ondragstart event handler
+            cell.setAttribute("draggable", "true");
+            cell.setAttribute("ondragstart", "drag(event)");
+            cell.setAttribute("id",  pupilList.pupil[i].id);
+
+
+            // set the cell content
+            cell.innerHTML = pupilList.pupil[i].name;
+        }
+
+    });
+
+
+});
+
+
 // Add drag and drop functions
 function allowDrop(event) {
     event.preventDefault();
@@ -66,14 +103,14 @@ function drop(event) {
             }
         }
     }
+    let studentTable = document.getElementById('student-table');
 
     // Remove the student from the table
     if(isDragFromTable=="FromTable") {
-
-        let table = document.getElementById('student-table');
-        const childElements = table.querySelectorAll('tbody > tr > td');
+        const childElements = studentTable.querySelectorAll('tbody > tr > td');
         for (const element of childElements) {
-
+            console.log(element.innerText);
+            console.log(studentName);
             if(element.innerText==studentName) {
                 (element.parentElement).removeChild(element);
                 break;

@@ -10,7 +10,8 @@
             src="https://code.jquery.com/jquery-3.6.1.js"
             integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
             crossorigin="anonymous"></script>
-    <script src="../js/dividingGroupsTeacher.js.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" crossorigin="anonymous"></script>
+    <script src="../js/dividingGroupsTeacher.js"></script>
 </head>
 <body>
 <div class="container">
@@ -19,48 +20,39 @@
         <tr>
             <th>שם התלמיד</th>
         </tr>
-        <tr>
-            <td draggable="true" ondragstart="drag(event)">Alice</td>
-        </tr>
-        <tr>
-            <td draggable="true" ondragstart="drag(event)">Bob</td>
-        </tr>
-        <tr>
-            <td draggable="true" ondragstart="drag(event)">Charlie</td>
-        </tr>
-        <!-- Add more rows for additional students -->
+
     </table>
 
     <div class="group-container">
         <!-- Add six group divs -->
         <div class="group" id="group1" ondrop="drop(event)" ondragover="allowDrop(event)" >
-            <h3>Group 1</h3>
+            <h3>קבוצה 1</h3>
             <ul></ul>
         </div>
         <div class="group" id="group2" ondrop="drop(event)"  ondragover="allowDrop(event)" >
-            <h3>Group 2</h3>
+            <h3>קבוצה 2</h3>
             <ul></ul>
         </div>
         <div class="group"  id="group3"ondrop="drop(event)"   ondragover="allowDrop(event)" >
-            <h3>Group 3</h3>
+            <h3>קבוצה 3</h3>
             <ul></ul>
         </div>
         <div class="group"  id="group4"ondrop="drop(event)"  ondragover="allowDrop(event)">
-            <h3>Group 4</h3>
+            <h3>קבוצה 4</h3>
             <ul></ul>
         </div>
         <div class="group"  id="group5"ondrop="drop(event)"  ondragover="allowDrop(event)">
-            <h3>Group 5</h3>
+            <h3>קבוצה 5</h3>
             <ul></ul>
         </div>
         <div class="group" id="group6" ondrop="drop(event)"   ondragover="allowDrop(event)" >
-            <h3>Group 6</h3>
+            <h3>קבוצה 6</h3>
             <ul></ul>
         </div>
     </div>
 </div>
 <div class="input-section">
-    <input type="submit" value="Save Groups" onclick="saveGroups()">
+    <input type="submit" value="שמור קבוצות" onclick="saveGroups()">
 </div>
 
 </body>
