@@ -1,4 +1,5 @@
 const User = require('../mongoDB/models/users');
+const {default: axios} = require("axios");
 const loggedUsers = {};
 module.exports = {
     checkUserTeacher: (req, res) => {
@@ -13,6 +14,7 @@ module.exports = {
                 .catch(err => console.log(err));
     },
     checkUserPupil: (req, res) => {
+
         User.findOne({'user_name': req.body.userName})
             .then(result => {
                 if (result) {

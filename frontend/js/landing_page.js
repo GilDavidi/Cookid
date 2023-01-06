@@ -34,9 +34,11 @@ $("document").ready(() => {
         e.preventDefault();
         let jsonPupil= {};
         jsonPupil.userName= $('input[name="user_name"]').val();
+
         $.post('http://localhost:3001/login/checkUserPupil', jsonPupil)
             .done((msg) =>
             {
+
                 if (msg != "The user does not exist, try again")
                 {
                     window.location.replace(`../groups/waitingPagePupil.html?userId=${msg.id}&userName=${msg.name}`);
