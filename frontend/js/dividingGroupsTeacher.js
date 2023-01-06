@@ -4,31 +4,54 @@ const socket = io("http://localhost:3001");
 socket.emit('teacherConnected');
 
 
-
 $("document").ready(() => {
     let table = document.getElementById('student-table');
+    const isStudentExist =(name) =>
+    {
+        const rows = table.querySelectorAll('tr');
+        for (const row of rows) {
+            if (row.textContent.includes(name)) {
+               return true;
+            }
+        }
+        return false;
 
-    socket.on('updatePupilList',(pupilList)=>{
+    };
+    const updateTable =(pupilList) =>
+    {
 
-            // loop through the array
+        // loop through the array
         for (let i = 0; i < pupilList.pupil.length; i++) {
             // create a new row
-            let row = table.insertRow();
+            if(isStudentExist(pupilList.pupil[i].name)== false) {
 
-            // create a new cell
-            let cell = row.insertCell();
+                let row = table.insertRow();
 
-
-            // set the cell as draggable and add the ondragstart event handler
-            cell.setAttribute("draggable", "true");
-            cell.setAttribute("ondragstart", "drag(event)");
-            cell.setAttribute("id",  pupilList.pupil[i].id);
+                // create a new cell
+                let cell = row.insertCell();
 
 
-            // set the cell content
-            cell.innerHTML = pupilList.pupil[i].name;
+                // set the cell as draggable and add the ondragstart event handler
+                cell.setAttribute("draggable", "true");
+                cell.setAttribute("ondragstart", "drag(event)");
+                cell.setAttribute("id", pupilList.pupil[i].id);
+
+
+                // set the cell content
+                cell.innerHTML = pupilList.pupil[i].name;
+            }
         }
+    }
 
+    $.get('http://localhost:3001/groups/getAllPupilInTheGame')
+        .done((pupilList) =>{
+                updateTable(pupilList);
+            })
+        .catch((err)=>{
+            console.log(err.message);}
+        )
+    socket.on('updatePupilList',(pupilList)=>{
+        updateTable(pupilList);
     });
 
 

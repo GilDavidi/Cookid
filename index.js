@@ -50,6 +50,20 @@ const io = socket(serverExpress);
 // Runs when client connect to our sever
 let connection=0;
 let teacherSocketId;
+let pupilSockets={};
+pupilSockets.pupils=[];
+const isPupilConnected =(id)=>{
+
+    let result=false;
+    pupilSockets.pupils.forEach(
+        (pupil)=>{
+            if(pupil.id==id)
+            {
+                result= pupil.socketId;
+            }
+    });
+    return result;
+}
 io.on('connection',(client) =>
     {
         connection++;
@@ -59,16 +73,33 @@ io.on('connection',(client) =>
 
         client.on('pupilConnected',(pupilDetails)=>
         {
+
+            let result= isPupilConnected(pupilDetails.id);
+            if(result!=false)
+            {
+                io.sockets.sockets.forEach((socketPupil) => {
+                    // If given socket id is exist in list of all sockets, kill it
+                    if(socketPupil.id == result) {
+                        io.to(socketPupil.id).emit('close');
+                    }
+                });
+
+            }
+            pupilSockets.pupils.push({id:pupilDetails.id,socketId:client.id});
+
+            client.join("waiting_room");
             let pupilJSONDetails={};
             pupilJSONDetails.id=pupilDetails.id;
             pupilJSONDetails.name=pupilDetails.name;
+
             axios.post('http://localhost:3001/groups/addPupil', pupilJSONDetails)
                 .then( (pupilListResponse)=> {
-                    if(teacherSocketId)
+                    if(teacherSocketId )
                     {
                         io.to(teacherSocketId).emit('updatePupilList',pupilListResponse.data);
                     }
-                    console.log(`Pupil with id ${pupilDetails.id} connected`);
+                    console.log(`Pupil with id ${pupilDetails.id}  and  connected`);
+
                 })
                 .catch(err => {
                     console.error(err.message);

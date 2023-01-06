@@ -4,6 +4,10 @@ const consts = require('./constants');
 const {DB_HOST, DB_USER, DB_PASS} = consts;
 const url = DB_HOST;
 
+
+mongoose.set('strictQuery', false);
+
+
 const options = {
     useNewUrlParser: true,    // For deprecation warnings
     useUnifiedTopology: true, // For deprecation warnings
