@@ -24,105 +24,6 @@ const getPlayerName = () => {
 }
 
 
-
-// let playersArray;
-// let controller = {
-//     left:false,
-//     right:false,
-//     up:false,
-//     keyListener: (event) => {
-//         let key_state = (event.type == "keydown")?true:false;
-//         switch(event.keyCode) {
-//
-//             case 37:// left key
-//                 controller.left = key_state;
-//                 break;
-//             case 38:// up key
-//                 controller.up = key_state;
-//                 break;
-//             case 39:// right key
-//                 controller.right = key_state;
-//                 break;
-//
-//         }
-//
-//         playerJson.point={};
-//         playerJson.point.x=player.x;
-//         playerJson.point.y=player.y;
-//
-//         if(controller.left==true  || controller.right==true || controller.up==true ) {
-//             $.post(`${URL}/game/MovePlayer`, playerJson)
-//                 .done(serverMessage => {
-//                     console.log(serverMessage);
-//                 })
-//                 .fail((xhr, status, error) => {
-//                     console.error("failed send to server " + error);
-//                 });
-//
-//         }
-//
-//      }
-// };
-// let player = {
-//     height:10,
-//     jumping:true,
-//     width:10,
-//     x:144, // center of the canvas
-//     x_velocity:0,
-//     y:0,
-//     y_velocity:0
-//
-// };
-// const calPlayerPos = () =>
-// {
-//     if (controller.up && player.jumping == false) {
-//
-//         player.y_velocity -= 20;
-//         player.jumping = true;
-//         console.log("x:"+ player.x + " y:" +player.y );
-//         console.log("vel_x:"+ player.x_velocity + " vel_y:" +player.y_velocity );
-//
-//     }
-//
-//     if (controller.left) {
-//         player.x_velocity -= 0.5;
-//
-//     }
-//
-//     if (controller.right) {
-//
-//         player.x_velocity += 0.5;
-//
-//     }
-//     player.y_velocity += 1.5;// gravity
-//     player.x += player.x_velocity;
-//     player.y += player.y_velocity;
-//     player.x_velocity *= 0.9;// friction
-//     player.y_velocity *= 0.9;// friction
-//
-//
-//
-//
-//     // if rectangle is falling below floor line
-//     if (player.y > 130) {
-//
-//         player.jumping = false;
-//         player.y = 130;
-//         player.y_velocity = 0;
-//
-//     }
-//
-//     // if rectangle is going off the left of the screen
-//     if (player.x < -32) {
-//
-//         player.x = 320;
-//
-//     } else if (player.x > 320) {// if rectangle goes past right boundary
-//
-//         player.x = -32;
-//     }
-// }
-//
  const startGame = () =>
 {
   $.get(`${URL}/game/StartGame`)
@@ -151,8 +52,8 @@ const getPlayerName = () => {
 }
 
 const init = () => {
-    let canvas = document.getElementById('can');
-    let ctx = canvas.getContext("2d");
+    canvas = document.getElementById('can');
+    ctx = canvas.getContext("2d");
     let width = canvas.width;
     let height = canvas.height;
 
@@ -181,7 +82,6 @@ const findxy = (res, e) => {
         let flag = true;
         let dot_flag = true;
         if (dot_flag) {
-            let ctx;
             ctx.beginPath();
             ctx.fillStyle = x;
             ctx.fillRect(currX, currY, 2, 2);
@@ -247,6 +147,26 @@ const color = (obj) => {
         ctx.fillRect(currX, currY, 2, 2);
         ctx.closePath();
     }
+//Timer JS
+// Calculate the time 10 minutes from now
+let deadline = new Date().getTime() + 600000;
+
+// Update the timer every second
+setInterval(function() {
+    // Get the current time
+    let currentTime = new Date().getTime();
+
+    // Calculate the time remaining
+    let timeRemaining = deadline - currentTime;
+
+    // Convert the time remaining to minutes and seconds
+    let minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+    // Display the time remaining on the page
+    document.getElementById("timer").innerHTML = "Time remaining: " + minutes + ":" + seconds;
+}, 1000);
+
 // NOT IN USE
 
 // function erase() {
@@ -263,7 +183,103 @@ const color = (obj) => {
 //     document.getElementById("canvasimg").src = dataURL;
 //     document.getElementById("canvasimg").style.display = "inline";
 // }
+startGame();
+init();
+
+
+
+
+// let playersArray;
+// let controller = {
+//     left:false,
+//     right:false,
+//     up:false,
+//     keyListener: (event) => {
+//         let key_state = (event.type == "keydown")?true:false;
+//         switch(event.keyCode) {
+//             case 37:// left key
+//                 controller.left = key_state;
+//                 break;
+//             case 38:// up key
+//                 controller.up = key_state;
+//                 break;
+//             case 39:// right key
+//                 controller.right = key_state;
+//                 break;
+//         }
+//         playerJson.point={};
+//         playerJson.point.x=player.x;
+//         playerJson.point.y=player.y;
+//         if(controller.left==true  || controller.right==true || controller.up==true ) {
+//             $.post(`${URL}/game/MovePlayer`, playerJson)
+//                 .done(serverMessage => {
+//                     console.log(serverMessage);
+//                 })
+//                 .fail((xhr, status, error) => {
+//                     console.error("failed send to server " + error);
+//                 });
+//         }
+//      }
+// };
+// let player = {
+//     height:10,
+//     jumping:true,
+//     width:10,
+//     x:144, // center of the canvas
+//     x_velocity:0,
+//     y:0,
+//     y_velocity:0
 //
+// };
+// const calPlayerPos = () =>
+// {
+//     if (controller.up && player.jumping == false) {
+//
+//         player.y_velocity -= 20;
+//         player.jumping = true;
+//         console.log("x:"+ player.x + " y:" +player.y );
+//         console.log("vel_x:"+ player.x_velocity + " vel_y:" +player.y_velocity );
+//
+//     }
+//
+//     if (controller.left) {
+//         player.x_velocity -= 0.5;
+//
+//     }
+//
+//     if (controller.right) {
+//
+//         player.x_velocity += 0.5;
+//
+//     }
+//     player.y_velocity += 1.5;// gravity
+//     player.x += player.x_velocity;
+//     player.y += player.y_velocity;
+//     player.x_velocity *= 0.9;// friction
+//     player.y_velocity *= 0.9;// friction
+//
+//
+//
+//
+//     // if rectangle is falling below floor line
+//     if (player.y > 130) {
+//
+//         player.jumping = false;
+//         player.y = 130;
+//         player.y_velocity = 0;
+//
+//     }
+//
+//     // if rectangle is going off the left of the screen
+//     if (player.x < -32) {
+//
+//         player.x = 320;
+//
+//     } else if (player.x > 320) {// if rectangle goes past right boundary
+//
+//         player.x = -32;
+//     }
+// }
 //
 // // Prepare canvas and context
 // const canvas = document.getElementById("canvas");
@@ -321,9 +337,7 @@ const color = (obj) => {
 //
 // window.addEventListener("keydown", controller.keyListener)
 // window.addEventListener("keyup", controller.keyListener);
-startGame();
-init();
-//
+
 // const gameLoop= () =>
 // {
 //     calPlayerPos();
@@ -336,5 +350,3 @@ init();
 //     window.requestAnimationFrame(gameLoop);
 // }
 // window.requestAnimationFrame(gameLoop);
-//
-//

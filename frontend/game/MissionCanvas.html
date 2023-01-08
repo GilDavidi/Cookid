@@ -24,64 +24,63 @@
 				</header>
 
 				<div class="frame-parent">
-					<h1>Timer</h1>
 
 					<div id="drawContainer">
-						<img class="artboard-14x-1-1" src="../images/logo.png" />
 
-						<div id="canvasContainer">
+						<h2 id="timer">Time remaining: 10:00</h2>
+
+						<img class="artboard-14x-1-1" src="../images/logo.png" />
+						<div id="square">
 							<div id="ColorSelection">
 								<div
-									class="paint"
-									style="background: green"
-									id="green"
-									onclick="color(this)"
+										class="paint"
+										style="background: green"
+										id="green"
+										onclick="color(this)"
 								></div>
 								<div
-									class="paint"
-									style="background: blue"
-									id="blue"
-									onclick="color(this)"
+										class="paint"
+										style="background: blue"
+										id="blue"
+										onclick="color(this)"
 								></div>
 								<div
-									class="paint"
-									style="background: red"
-									id="red"
-									onclick="color(this)"
+										class="paint"
+										style="background: red"
+										id="red"
+										onclick="color(this)"
 								></div>
 								<div
-									class="paint"
-									style="background: yellow"
-									id="yellow"
-									onclick="color(this)"
+										class="paint"
+										style="background: yellow"
+										id="yellow"
+										onclick="color(this)"
 								></div>
 								<div
-									class="paint"
-									style="background: orange"
-									id="orange"
-									onclick="color(this)"
+										class="paint"
+										style="background: orange"
+										id="orange"
+										onclick="color(this)"
 								></div>
 								<div
-									class="paint"
-									style="background: black"
-									id="black"
-									onclick="color(this)"
+										class="paint"
+										style="background: black"
+										id="black"
+										onclick="color(this)"
 								></div>
 								<!--        <div style="position:relative;top:20%;left:43%;">Eraser</div>-->
 								<div
-									class="paint"
-									style="background: white"
-									id="white"
-									onclick="color(this)"
+										class="paint"
+										style="background: white"
+										id="white"
+										onclick="color(this)"
 								></div>
 							</div>
-
-							<canvas
-								id="can"
-								width="800"
-								height="600"
-								style="position: relative; border: 2px solid black"
-							></canvas>
+							<div id="log">
+							</div>
+						</div>
+						<div id="canvasContainer">
+							<canvas id="can"></canvas>
 						</div>
 					</div>
 				</div>
