@@ -15,7 +15,8 @@ $("document").ready(() => {
         $("#waiting_message").text('');
         socket.disconnect();
 
-    }
+    });
+    socket.on('startMission',(link)=>{window.location.replace(link);}
 )
 
 

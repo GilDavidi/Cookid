@@ -72,7 +72,6 @@ function drag(event) {
     }
 
 
-
     // Set the old group id to the current group id if the student is being dragged from a group, or null if they are being dragged from the table
     let div=groupElement.closest('div');
 
@@ -80,11 +79,11 @@ function drag(event) {
     if(div.className.includes("group")) {
         let oldGroupId = div.id;
         // Set the data to include the student name and group id
-        event.dataTransfer.setData("text", groupElement.innerHTML + "," + oldGroupId);
+        event.dataTransfer.setData("text", groupElement.innerHTML +","+groupElement.id+","+oldGroupId);
     }
     else
     {
-        event.dataTransfer.setData("text",event.target.innerHTML+ ","+ ",FromTable");
+        event.dataTransfer.setData("text",event.target.innerHTML+ ","+event.target.id+ ","+",FromTable");
     }
 
 
@@ -98,8 +97,9 @@ function drop(event) {
     // Split the data into the student name and group id
     let studentData = data.split(",");
     let studentName = studentData[0];
-    let oldGroupId = studentData[1];
-    let isDragFromTable = studentData[2];
+    let studentId = studentData[1];
+    let oldGroupId = studentData[2];
+    let isDragFromTable = studentData[3];
 
 
     // Find the nearest .group element
@@ -132,8 +132,6 @@ function drop(event) {
     if(isDragFromTable=="FromTable") {
         const childElements = studentTable.querySelectorAll('tbody > tr > td');
         for (const element of childElements) {
-            console.log(element.innerText);
-            console.log(studentName);
             if(element.innerText==studentName) {
                 (element.parentElement).removeChild(element);
                 break;
@@ -145,7 +143,7 @@ function drop(event) {
 
 
     // Add the student to the new group
-    groupElement.querySelector("ul").innerHTML += "<li ondragstart='drag(event)'>" + studentName + "</li>";
+    groupElement.querySelector("ul").innerHTML += `<li ondragstart='drag(event)' id=${studentId}>` + studentName + "</li>";
 
 }
 
@@ -161,13 +159,15 @@ function saveGroups() {
     let groups = {};
     let groupElements = document.querySelectorAll(".group");
     for (let i = 0; i < groupElements.length; i++) {
-        let groupName = groupElements[i].querySelector("h3").innerHTML;
+        let groupId=groupElements[i].id;
         let studentElements = groupElements[i].querySelectorAll("li");
         let students = [];
         for (let j = 0; j < studentElements.length; j++) {
-            students.push(studentElements[j].innerHTML);
+            students.push(studentElements[j].id);
         }
-        groups[groupName] = students;
+        groups[groupId] = students;
     }
     console.log(groups);
+    socket.emit('saveGroups',groups);
+
 }

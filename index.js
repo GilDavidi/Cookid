@@ -52,6 +52,7 @@ let connection=0;
 let teacherSocketId;
 let pupilSockets={};
 pupilSockets.pupils=[];
+
 const isPupilConnected =(id)=>{
 
     let result=false;
@@ -87,7 +88,6 @@ io.on('connection',(client) =>
             }
             pupilSockets.pupils.push({id:pupilDetails.id,socketId:client.id});
 
-            client.join("waiting_room");
             let pupilJSONDetails={};
             pupilJSONDetails.id=pupilDetails.id;
             pupilJSONDetails.name=pupilDetails.name;
@@ -111,6 +111,20 @@ io.on('connection',(client) =>
         client.on('teacherConnected',() =>{
             teacherSocketId=client.id;
             console.log("The Teacher connected")});
+        client.on('saveGroups',(groups)=>{
+            //console.log(io.sockets.sockets['']);
+            for (const key in groups) {
+                if (groups.hasOwnProperty(key)) {
+                    const element = groups[key];
+                    for (let i = 0; i < element.length; i++) {
+                        io.sockets.sockets.get(isPupilConnected(element[i])).join(`${key}`);
+                    }
+                }
+            }
+            io.to('group1').emit('startMission','http://localhost:3001/game/PaintCanvas.html');
+
+        })
+
     }
 
 );
