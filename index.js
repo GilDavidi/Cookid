@@ -47,6 +47,17 @@ app.use('/groups',groupsRouter);
 
 
 const io = socket(serverExpress);
+
+const session = require("express-session")({
+    secret: "my-secret",
+    resave: true,
+    saveUninitialized: true
+});
+app.use(session);
+const sharedsession = require("express-socket.io-session");
+io.use(sharedsession(session));
+
+
 // Runs when client connect to our sever
 let connection=0;
 let teacherSocketId;
@@ -67,6 +78,9 @@ const isPupilConnected =(id)=>{
 }
 io.on('connection',(client) =>
     {
+        // Save the socket id in the session
+        client.handshake.session.socketId = client.id;
+        client.handshake.session.save();
         connection++;
         client.on('disconnect', ()=> {
             connection--;
@@ -74,7 +88,7 @@ io.on('connection',(client) =>
 
         client.on('pupilConnected',(pupilDetails)=>
         {
-
+            console.log('Client id in pupilConnected',client.id);
             let result= isPupilConnected(pupilDetails.id);
             if(result!=false)
             {
@@ -117,14 +131,19 @@ io.on('connection',(client) =>
                 if (groups.hasOwnProperty(key)) {
                     const element = groups[key];
                     for (let i = 0; i < element.length; i++) {
+                        const pupilSocket = isPupilConnected(element[i])
                         io.sockets.sockets.get(isPupilConnected(element[i])).join(`${key}`);
+                        io.to(pupilSocket).emit('startMission',`http://localhost:3001/game/PaintCanvas.html?userId=${element[i]}`);
                     }
                 }
             }
-            io.to('group1').emit('startMission','http://localhost:3001/game/PaintCanvas.html');
 
         })
-
+        client.on('sendBoard',(canvasImg)=>{
+            console.log('Client id in sendBoard',client.id);
+            console.log('Line 130')
+            io.to('group1').emit('updateBoard',canvasImg);
+        })
     }
 
 );
