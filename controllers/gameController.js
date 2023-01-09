@@ -4,7 +4,7 @@ const User = require("../mongoDB/models/users");
 let mission= new Mission();
 module.exports = {
     loadGame: (req, res) => {
-        res.sendFile(path.join(__dirname, '../frontend/view_game/MissionCanvas.html'));
+        res.sendFile(path.join(__dirname, '../frontend/view_game/PaintCanvas.html'));
     },
     StartGame: (req, res) => {
         console.log("Server Game Started");
