@@ -73,18 +73,20 @@ const init = () => {
 
 
 const findxy = (res, e) => {
+    const rect = canvas.getBoundingClientRect();
+    console.log(`Mouse position: (${currX}, ${currY})`);
     if (res == 'down') {
         prevX = currX;
         prevY = currY;
         currX = e.clientX - canvas.offsetLeft;
         currY = e.clientY - canvas.offsetTop;
 
-        let flag = true;
-        let dot_flag = true;
+        flag = true;
+        dot_flag = true;
         if (dot_flag) {
             ctx.beginPath();
             ctx.fillStyle = x;
-            ctx.fillRect(currX, currY, 2, 2);
+            ctx.fillRect(currX, currY, 1, 1);
             ctx.closePath();
             dot_flag = false;
         }
