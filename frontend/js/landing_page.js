@@ -1,5 +1,5 @@
-import { url } from './urlService.js';
-const urlEndPoint = url();
+const URL = window.location.origin;
+
 $("document").ready(() => {
 
     $('input[name="teacher_button"]').click((e) => {
@@ -18,7 +18,7 @@ $("document").ready(() => {
          jsonTeacher.password= $('input[name="password"]').val();
          jsonTeacher.userName= $('input[name="user_name"]').val();
 
-        $.post(`${urlEndPoint}/login/checkUserTeacher`, jsonTeacher)
+        $.post(`${URL}/login/checkUserTeacher`, jsonTeacher)
             .done((userCheckServer) => {
                 if (userCheckServer == "The user exist") {
                     window.location.replace(`../groups/dividingGroupsTeacher.html`);
@@ -34,7 +34,7 @@ $("document").ready(() => {
         let jsonPupil= {};
         jsonPupil.userName= $('input[name="user_name"]').val();
 
-        $.post(`${urlEndPoint}/login/checkUserPupil`, jsonPupil)
+        $.post(`${URL}/login/checkUserPupil`, jsonPupil)
             .done((msg) =>
             {
 
