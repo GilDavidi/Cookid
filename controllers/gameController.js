@@ -14,8 +14,6 @@ module.exports = {
             res.send(mission.getBoard());
     },
     AddNewPlayer: (req,res) => {
-        // mission.addNewPLayer(req.body.id);
-        console.log(req.body.id);
         res.send("new player add with id " + req.body.id);
     },
     GetPlayerName: (req, res) => {
@@ -30,8 +28,5 @@ module.exports = {
             })
             .catch(err => console.log(err));
     }
-    // MovePlayer: (req,res) => {
-    //     mission.SetPlayerPos(req.body.id,req.body.point);
-    //     res.send("player "+req.body.id+ "move to " + req.body.point);
-    // }
+
 }
