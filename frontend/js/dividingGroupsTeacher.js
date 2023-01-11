@@ -1,4 +1,5 @@
 const socket = io();
+const URL = window.location.origin;
 
 
 socket.emit('teacherConnected');
@@ -43,7 +44,7 @@ $("document").ready(() => {
         }
     }
 
-    $.get('http://localhost:3001/groups/getAllPupilInTheGame')
+    $.get(`${URL}/groups/getAllPupilInTheGame`)
         .done((pupilList) =>{
                 updateTable(pupilList);
             })

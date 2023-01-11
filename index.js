@@ -8,6 +8,7 @@ const loginRouter =require('./routers/loginRouter')
 const socket = require('socket.io');
 const app = express();
 const axios = require('axios').default;
+const URL = process.env.URL;
 let pupilList={};
 
 db.connectToDB();
@@ -105,7 +106,7 @@ io.on('connection',(client) =>
             pupilJSONDetails.id=pupilDetails.id;
             pupilJSONDetails.name=pupilDetails.name;
 
-            axios.post('http://localhost:3001/groups/addPupil', pupilJSONDetails)
+            axios.post(`${URL}/groups/addPupil`, pupilJSONDetails)
                 .then( (pupilListResponse)=> {
                     if(teacherSocketId )
                     {
@@ -131,7 +132,7 @@ io.on('connection',(client) =>
                     for (let i = 0; i < element.length; i++) {
                         const pupilSocket = isPupilConnected(element[i])
                         //io.sockets.sockets.get(isPupilConnected(element[i])).join(`${key}`);
-                        io.to(pupilSocket).emit('startMission',`http://localhost:3001/game/PaintCanvas.html?userId=${element[i]}&groupId=${key}`);
+                        io.to(pupilSocket).emit('startMission',`${URL}/game/PaintCanvas.html?userId=${element[i]}&groupId=${key}`);
                     }
                 }
             }
