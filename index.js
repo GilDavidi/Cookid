@@ -88,7 +88,6 @@ io.on('connection',(client) =>
 
         client.on('pupilConnected',(pupilDetails)=>
         {
-            console.log('Client id in pupilConnected',client.id);
             let result= isPupilConnected(pupilDetails.id);
             if(result!=false)
             {
@@ -126,22 +125,23 @@ io.on('connection',(client) =>
             teacherSocketId=client.id;
             console.log("The Teacher connected")});
         client.on('saveGroups',(groups)=>{
-            //console.log(io.sockets.sockets['']);
             for (const key in groups) {
                 if (groups.hasOwnProperty(key)) {
                     const element = groups[key];
                     for (let i = 0; i < element.length; i++) {
                         const pupilSocket = isPupilConnected(element[i])
-                        io.sockets.sockets.get(isPupilConnected(element[i])).join(`${key}`);
-                        io.to(pupilSocket).emit('startMission',`http://localhost:3001/game/PaintCanvas.html?userId=${element[i]}`);
+                        //io.sockets.sockets.get(isPupilConnected(element[i])).join(`${key}`);
+                        io.to(pupilSocket).emit('startMission',`http://localhost:3001/game/PaintCanvas.html?userId=${element[i]}&groupId=${key}`);
                     }
                 }
             }
 
+        });
+        client.on('addPupilToGroup',(pupilDetails)=>{
+            client.join(pupilDetails.groupId);
         })
+
         client.on('sendBoard',(canvasImg)=>{
-            console.log('Client id in sendBoard',client.id);
-            console.log('Line 130')
             io.to('group1').emit('updateBoard',canvasImg);
         })
     }
