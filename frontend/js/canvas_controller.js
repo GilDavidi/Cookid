@@ -2,10 +2,15 @@
 const socket = io("http://localhost:3001");
 let urlParams = new URLSearchParams(window.location.search);
 let userId = urlParams.get('userId');
+let groupId = urlParams.get('groupId');
 let playerJson={};
 playerJson.id=userId;
+playerJson.groupId=groupId;
+socket.emit('addPupilToGroup',playerJson);
+let canvas = document.getElementById('can');
+let ctx = canvas.getContext("2d");
 const URL = window.location.origin;
-let canvas, ctx, flag = false,
+let  flag = false,
     prevX = 0,
     currX = 0,
     prevY = 0,
@@ -52,8 +57,7 @@ const getPlayerName = () => {
 }
 
 const init = () => {
-    canvas = document.getElementById('can');
-    ctx = canvas.getContext("2d");
+
     let width = canvas.width;
     let height = canvas.height;
 
@@ -115,7 +119,9 @@ const draw = () => {
     }
 socket.on('updateBoard',(canvasImg)=>{
     console.log('Updating Board');
-    document.getElementById("can").src = canvasImg;
+    let img = new Image();
+    img.src = canvasImg;
+    ctx.drawImage(img, 0, 0);
 })
 const color = (obj) => {
         switch (obj.id) {
