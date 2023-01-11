@@ -1,5 +1,6 @@
-
-const socket = io("http://localhost:3001");
+import { url } from './urlService.js';
+const urlEndPoint = url();
+const socket = io();
 let urlParams = new URLSearchParams(window.location.search);
 let userId = urlParams.get('userId');
 let groupId = urlParams.get('groupId');
@@ -31,7 +32,7 @@ const getPlayerName = () => {
 
  const startGame = () =>
 {
-  $.get(`${URL}/game/StartGame`)
+  $.get(`${urlEndPoint}/game/StartGame`)
       .done(serverMessage=>
       {
         console.log(serverMessage);
@@ -39,14 +40,14 @@ const getPlayerName = () => {
       .fail((xhr, status, error) => {
         console.error("failed send to server " + error);
       });
-    $.post(`${URL}/game/GetPlayerName`, playerJson)
+    $.post(`${urlEndPoint}/game/GetPlayerName`, playerJson)
         .done(serverMessage => {
             console.log(serverMessage);
         })
         .fail((xhr, status, error) => {
             console.error("failed send to server " + error);
         });
-    $.post(`${URL}/game/AddNewPlayer`,playerJson)
+    $.post(`${urlEndPoint}/game/AddNewPlayer`,playerJson)
         .done(serverMessage=>
         {
             console.log(serverMessage);
