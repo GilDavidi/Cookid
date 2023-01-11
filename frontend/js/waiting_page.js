@@ -5,7 +5,7 @@ let userName = urlParams.get('userName');
 let pupilDetail={};
  pupilDetail.id=userId;
  pupilDetail.name=userName;
-const socket = io("http://localhost:3001");
+const socket = io();
 
 $("document").ready(() => {
     $("h1").text(`היי, ${userName}`) ;
