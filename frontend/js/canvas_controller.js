@@ -17,7 +17,7 @@ let  flag = false,
     currY = 0,
     dot_flag = false;
 let x = "black",
-    y = 2;
+    y = 8;
 const getPlayerName = () => {
     $.get(`${URL}/game/GetPlayerName`, playerJson)
         .done(serverMessage => {
@@ -115,6 +115,7 @@ const draw = () => {
         ctx.stroke();
         ctx.closePath();
         let canvasImg = canvas.toDataURL();
+        console.log(canvasImg);
         socket.emit('sendBoard',canvasImg);
     }
 socket.on('updateBoard',(canvasImg)=>{

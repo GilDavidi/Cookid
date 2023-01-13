@@ -1,24 +1,28 @@
 
-let Player = require('./PlayerPaint');
+let Player = require('./Player');
 
-module.exports= class Mission {
+module.exports= class MissionPaint {
+    colors=[];
     Players = {};
-    Board = [];
+    ReqPicture="";
     constructor(){
-        for(let i=0; i<100; i++) {
-            this.Board[i] = [];
-            for(let j=0; j<100; j++) {
-                this.Board[i][j] = "white";
-            }
-        }
+        this.colors= ["red","green","blue","red","yellow","orange","black","white"];
     }
     addNewPLayer=(playerId,name) =>
     {
         this.Players[playerId]= new Player(playerId,name);
     }
     getPlayer = (id) => this.Players[id];
-    getBoard= () => {
-        return this.Board;
+    geReqPicture= () => {
+        return this.ReqPicture;
+    }
+    divideColors=()=>
+    {
+        let amountOfPupils= this.Players.length;
+        for (let i = 0; i < this.colors.length; i++) {
+            let pupilIndex = i % amountOfPupils
+            this.Players[i].set_colors(this.colors[i]);
+        }
     }
 }
 

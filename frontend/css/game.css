@@ -68,7 +68,10 @@ input[type="submit"] {
 	font-weight: bold;
 	font-size: var(--font-size-base);
 }
-
+#drawContainer>img
+{
+	border: 2px solid black;
+}
 .wrapper {
 	border-radius: var(--br-md);
 	background-color: var(--color-white);
