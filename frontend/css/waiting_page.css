@@ -1,5 +1,5 @@
 body {
-    font-family: "Assistant";
+    font-family: 'Assistant';
     font-weight: bold;
     --font-size-base: 48px;
     font-size: 30px;
@@ -9,8 +9,7 @@ h1 {
     padding: 3rem 1rem 0;
     text-align: center;
     line-height: 1.3;
-    letter-spacing: 4px;
-    font-size: 2em;
+    font-size: 64px;
 }
 
 p {

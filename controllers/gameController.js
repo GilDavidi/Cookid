@@ -1,7 +1,7 @@
 const path = require("path");
-const Mission = require("../models/MissionPaint.js");
+const MissionPaint = require("../models/MissionPaint.js");
 const User = require("../mongoDB/models/users");
-let mission= new Mission();
+let mission= new MissionPaint();
 module.exports = {
     loadGame: (req, res) => {
         res.sendFile(path.join(__dirname, '../frontend/view_game/PaintCanvas.html'));
@@ -10,11 +10,14 @@ module.exports = {
         console.log("Server Game Started");
         res.send("Client Game Started");
     },
-    GetBoard: (req,res) => {
-            res.send(mission.getBoard());
+    GetRequestPicture: (req,res) => {
+            res.send(mission.geReqPicture);
     },
     AddNewPlayer: (req,res) => {
-        res.send("new player add with id " + req.body.id);
+        mission.addNewPLayer(res.body.id,res.body.name);
+    },
+    DivideColors:  (req,res) => {
+        mission.divideColors();
     },
     GetPlayerName: (req, res) => {
         let id = req.body.id;

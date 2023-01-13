@@ -164,7 +164,10 @@ function saveGroups() {
         let studentElements = groupElements[i].querySelectorAll("li");
         let students = [];
         for (let j = 0; j < studentElements.length; j++) {
-            students.push(studentElements[j].id);
+            let student ={};
+            student.id=studentElements[j].id;
+            student.name=studentElements[j].innerHTML;
+            students.push(student);
         }
         groups[groupId] = students;
     }

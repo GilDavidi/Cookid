@@ -4,7 +4,7 @@ const gameRouter = express.Router();
 
 gameRouter.get('/',gameController.loadGame);
 gameRouter.get('/StartGame',gameController.StartGame);
-gameRouter.get('/GetBoard',gameController.GetBoard);
+gameRouter.get('/GetRequestPicture',gameController.GetRequestPicture);
 gameRouter.post('/AddNewPlayer',gameController.AddNewPlayer);
 gameRouter.post('/GetPlayerName',gameController.GetPlayerName);
 

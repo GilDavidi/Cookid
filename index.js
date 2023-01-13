@@ -9,6 +9,7 @@ const socket = require('socket.io');
 const app = express();
 const axios = require('axios').default;
 const URL = process.env.URL;
+const gameController= require('./controllers/gameController');
 let pupilList={};
 
 db.connectToDB();
@@ -90,6 +91,7 @@ io.on('connection',(client) =>
         client.on('pupilConnected',(pupilDetails)=>
         {
             let result= isPupilConnected(pupilDetails.id);
+
             if(result!=false)
             {
                 io.sockets.sockets.forEach((socketPupil) => {
@@ -100,12 +102,12 @@ io.on('connection',(client) =>
                 });
 
             }
+
             pupilSockets.pupils.push({id:pupilDetails.id,socketId:client.id});
 
             let pupilJSONDetails={};
             pupilJSONDetails.id=pupilDetails.id;
             pupilJSONDetails.name=pupilDetails.name;
-
             axios.post(`${URL}/groups/addPupil`, pupilJSONDetails)
                 .then( (pupilListResponse)=> {
                     if(teacherSocketId )
@@ -116,6 +118,7 @@ io.on('connection',(client) =>
 
                 })
                 .catch(err => {
+                    console.log("here");
                     console.error(err.message);
                 })
 
@@ -130,15 +133,15 @@ io.on('connection',(client) =>
                 if (groups.hasOwnProperty(key)) {
                     const element = groups[key];
                     for (let i = 0; i < element.length; i++) {
-                        const pupilSocket = isPupilConnected(element[i])
-                        //io.sockets.sockets.get(isPupilConnected(element[i])).join(`${key}`);
-                        io.to(pupilSocket).emit('startMission',`${URL}/game/PaintCanvas.html?userId=${element[i]}&groupId=${key}`);
+                        const pupilSocket = isPupilConnected(element[i].id);
+                        io.to(pupilSocket).emit('startMission',`${URL}/game/PaintCanvas.html?userId=${element[i].id}&userName=${element[i].name}&groupId=${key}`);
                     }
                 }
             }
 
         });
         client.on('addPupilToGroup',(pupilDetails)=>{
+
             client.join(pupilDetails.groupId);
         })
 
