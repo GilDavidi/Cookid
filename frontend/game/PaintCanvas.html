@@ -3,12 +3,9 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="initial-scale=1, width=device-width" />
-
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@700&display=swap"/>
 		<link rel="stylesheet" href="../css/game.css" />
-		<link
-			rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Assistant:wght@700&display=swap"
-		/>
 		<script
 			src="https://code.jquery.com/jquery-3.6.1.js"
 			integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
@@ -25,63 +22,119 @@
 				<div class="frame-parent">
 					<div id="drawContainer">
 						<div>
-
 							<h2 id="timer">הזמן שנותר: 10:00 </h2>
-							<div id="ColorSelection">
-								<div
-										class="paint"
-										style="background: green"
-										id="green"
-										onclick="color(this)"
-								></div>
-								<div
-										class="paint"
-										style="background: blue"
-										id="blue"
-										onclick="color(this)"
-								></div>
-								<div
-										class="paint"
-										style="background: red"
-										id="red"
-										onclick="color(this)"
-								></div>
-								<div
-										class="paint"
-										style="background: yellow"
-										id="yellow"
-										onclick="color(this)"
-								></div>
-								<div
-										class="paint"
-										style="background: orange"
-										id="orange"
-										onclick="color(this)"
-								></div>
-								<div
-										class="paint"
-										style="background: black"
-										id="black"
-										onclick="color(this)"
-								></div>
-								<!--        <div style="position:relative;top:20%;left:43%;">Eraser</div>-->
-								<div
-										class="paint"
-										style="background: white"
-										id="white"
-										onclick="color(this)"
-								></div>
-							</div>
-						</div>
-						<img src="../images/paint1.png" />
-						<div id="square">
-							<div id="log">
+							<div style="border: 2px solid black">
+								<img src="../images/paint1.png" />
 							</div>
 						</div>
 						<div id="canvasContainer">
 							<canvas id="can" width="600px" height="300px"></canvas>
 						</div>
-
+						<div id="square">
+							<div id="PupilTable">
+								<table class="table-bordered">
+									<tr>
+										<th rowspan="1" style="vertical-align : middle;text-align:center;">שם התלמיד</th>
+										<th rowspan="1" style="vertical-align : middle;text-align:center;">הצבעים שלו:</th>
+									</tr>
+									<tr>
+										<th>עומר לוי</th>
+										<td>
+											<div class="ColorSelectionTable">
+												<div
+														class="paint"
+														style="background: blue"
+														id="blue"
+														onclick="color(this)"
+												></div>
+												<div
+														class="paint"
+														style="background: green"
+														id="green"
+														onclick="color(this)"
+												></div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>יוסי כהן</th>
+										<td>
+											<div class="ColorSelectionTable">
+												<div
+														class="paint"
+														style="background: blue"
+														id="blue"
+														onclick="color(this)"
+												></div>
+												<div
+														class="paint"
+														style="background: green"
+														id="green"
+														onclick="color(this)"
+												></div>
+												<div
+														class="paint"
+														style="background: yellow"
+														id="yellow"
+														onclick="color(this)"
+												></div>
+												<div
+														class="paint"
+														style="background: red"
+														id="red"
+														onclick="color(this)"
+												></div>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div id="ColorSelection">
+							<div
+									class="paint"
+									style="background: green"
+									id="green"
+									onclick="color(this)"
+							></div>
+							<div
+									class="paint"
+									style="background: blue"
+									id="blue"
+									onclick="color(this)"
+							></div>
+							<div
+									class="paint"
+									style="background: red"
+									id="red"
+									onclick="color(this)"
+							></div>
+							<div
+									class="paint"
+									style="background: yellow"
+									id="yellow"
+									onclick="color(this)"
+							></div>
+							<div
+									class="paint"
+									style="background: orange"
+									id="orange"
+									onclick="color(this)"
+							></div>
+							<div
+									class="paint"
+									style="background: black"
+									id="black"
+									onclick="color(this)"
+							></div>
+							<!--        <div style="position:relative;top:20%;left:43%;">Eraser</div>-->
+							<div
+									class="paint"
+									style="background: white"
+									id="white"
+									onclick="color(this)"
+							></div>
+						</div>
 					</div>
 				</div>
 			</div>
