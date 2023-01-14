@@ -32,7 +32,7 @@ body {
     left: 0;
     background-color: #d7f9f6;
     width: 100%;
-    height: 648px;
+    height: 90vh;
 }
 .b,
 .b1 {
@@ -92,7 +92,7 @@ label {
     box-sizing: border-box;
     padding: 5px 15px;
     float: left;
-    margin: 15px auto auto;
+    margin: 23px 2px auto auto;
     direction: rtl;
 }
 .frame-parent {
@@ -153,4 +153,13 @@ label {
 table {
     position: relative;
     display: block;
+}
+input[type="text" i] {
+    font-size: 17px;
+    width: 205px;
+    font-weight: bold;
+}
+input[type="password" i] {
+    font-size: 17px;
+    width: 205px;
 }

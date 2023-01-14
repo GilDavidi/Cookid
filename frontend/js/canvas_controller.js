@@ -17,7 +17,7 @@ let  flag = false,
     currY = 0,
     dot_flag = false;
 let x = "black",
-    y = 8;
+    y = 2;
 const getPlayerName = () => {
     $.get(`${URL}/game/GetPlayerName`, playerJson)
         .done(serverMessage => {

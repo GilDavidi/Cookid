@@ -187,6 +187,7 @@ table {
 	grid-template-columns: 1fr 1fr;
 	background-color: #d7f9f6;
 	justify-items: center;
+	width: 100%;
 }
 #timer {
 	font-size: 30px;
