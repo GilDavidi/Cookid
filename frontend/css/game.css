@@ -7,6 +7,7 @@
 	display: flex;
 	position: relative;
 	border: 2px solid black;
+	margin: 10px;
 }
 a[href],
 input[type="submit"],
@@ -38,8 +39,8 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	/* width: 249px; */
-	/* height: 144px; */
+	width: 180px;
+	height: 80px;
 	object-fit: cover;
 }
 .group-item {
@@ -71,6 +72,7 @@ input[type="submit"] {
 #drawContainer>img
 {
 	border: 2px solid black;
+	margin: 10px;
 }
 .wrapper {
 	border-radius: var(--br-md);
@@ -98,7 +100,6 @@ input[type="submit"] {
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	padding: 20px;
 }
 .rectangle-parent {
 	position: relative;
@@ -188,13 +189,17 @@ table {
 	justify-items: center;
 }
 #timer {
-	font-size: 40px;
+	font-size: 30px;
+	direction: rtl;
+	display: flex;
+	margin-right: 10px;
 }
 #log {
 	width: 500px;
 	height: 300px;
 	display: flex;
 	border: 2px solid black;
+	margin: 10px;
 }
 #square {
 	display: flex;

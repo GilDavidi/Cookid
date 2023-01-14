@@ -175,7 +175,7 @@ setInterval(function() {
     let seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
     // Display the time remaining on the page
-    document.getElementById("timer").innerHTML = "Time remaining: " + minutes + ":" + seconds;
+    document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
 }, 1000);
 
 // NOT IN USE
