@@ -17,7 +17,7 @@ let  flag = false,
     currY = 0,
     dot_flag = false;
 let x = "black",
-    y = 8;
+    y = 2;
 const getPlayerName = () => {
     $.get(`${URL}/game/GetPlayerName`, playerJson)
         .done(serverMessage => {
@@ -175,7 +175,7 @@ setInterval(function() {
     let seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
     // Display the time remaining on the page
-    document.getElementById("timer").innerHTML = "Time remaining: " + minutes + ":" + seconds;
+    document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
 }, 1000);
 
 // NOT IN USE

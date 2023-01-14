@@ -7,8 +7,12 @@
             src="https://code.jquery.com/jquery-3.6.1.js"
             integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
             crossorigin="anonymous"></script>
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Assistant:wght@700&display=swap"
+    />
     <script src="../js/landing_page.js"></script>
-    <link rel="stylesheet" href="../css/landingPage.css">
+    <link rel="stylesheet" href="../css/teacherPage.css">
     <!-- Favicon -->
     <link href="../favicon.ico" rel="icon" />
   </head>
@@ -18,30 +22,27 @@
     <div class="desktop-1">
       <div class="rectangle-parent">
         <header>
-          <div class="group-child"></div>
-          <img
-                  class="artboard-14x-1-1"
-                  src="../images/logo.png"
-          />
+          <img class="artboard-14x-1-1" src="../images/logo.png" />
         </header>
-        <div class="group-item"></div>
-        <b class="b">:שלום מורה, אנא מלא שם משתמש וסיסמא</b>
-        <div class="frame-parent">
+        <div class="group-item">
+          <b class="b">:שלום מורה, אנא מלא שם משתמש וסיסמא</b>
+          <div class="frame-parent">
 
-          <form method="post" autocomplete="on">
-            <div class="user-box">
-              <input type="text" name="user_name" required="">
-              <label>שם משתמש</label>
-            </div>
-            <div class="user-box">
-              <input type="password" name="password" required="">
-              <label>סיסמא</label>
-            </div>
-            <div id="failmsg"></div>
-            <div class="button_style">
-              <input class="button" type="submit" value="אשר" name="submitTeacherDetails">
-            </div>
-          </form>
+            <form method="post" autocomplete="on">
+              <div class="user-box">
+                <input class="inputContainer" type="text" name="user_name" required="">
+                <label>שם משתמש</label>
+              </div>
+              <div class="user-box">
+                <input class="inputContainer" type="password" name="password" required="">
+                <label>סיסמא</label>
+              </div>
+              <div id="failmsg"></div>
+              <div class="button_style">
+                <input class="container" class="button" type="submit" value="אשר" name="submitTeacherDetails">
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
