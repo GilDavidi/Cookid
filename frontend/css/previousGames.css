@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    line-height: normal;
+    font-family: var(--font-assistant);
+}
+.artboard-14x-1-1 {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 180px;
+    height: 80px;
+    object-fit: cover;
+}
+#Wrapper {
+    position: relative;
+    left: 0;
+    background-color: #d7f9f6;
+    width: 100%;
+    height: 89vh;
+}
+table {
+    border-collapse: collapse;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+tr:nth-child(even) {background-color: #E0FFFF;}
+th, td {
+    border: 1px solid #00BFFF;
+    text-align: right;
+    padding: 8px;
+}
+
+th {
+    background-color: #dddddd;
+}
+
+:root {
+    /* fonts */
+    --font-assistant: Assistant;
+
+    /* font sizes */
+    --font-size-base: 48px;
+
+    /* Colors */
+    --color-white: #fff;
+    --color-teal: #00a99d;
+    --color-black: #000;
+
+    /* Paddings */
+    --padding-md: 20px;
+
+    /* border radiuses */
+    --br-md: 9px;
+}
+h1 {
+    text-align: center;
+}
