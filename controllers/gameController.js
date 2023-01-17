@@ -1,35 +1,24 @@
 const path = require("path");
 const MissionPaint = require("../models/MissionPaint.js");
 const User = require("../mongoDB/models/users");
-let mission= new MissionPaint();
+
+let mission;
 module.exports = {
     loadGame: (req, res) => {
         res.sendFile(path.join(__dirname, '../frontend/view_game/PaintCanvas.html'));
     },
-    StartGame: (req, res) => {
-        console.log("Server Game Started");
-        res.send("Client Game Started");
+    StartMissionByGroupId: (req, res) => {
+        mission= new MissionPaint(req.body.groupId,req.body.group);
     },
     GetRequestPicture: (req,res) => {
-            res.send(mission.geReqPicture);
+            res.send(mission.geReqPicture());
     },
-    AddNewPlayer: (req,res) => {
-        mission.addNewPLayer(res.body.id,res.body.name);
+    getPlayersColors: (req,res) => {
+            res.send(mission.getPlayersColors());
     },
-    DivideColors:  (req,res) => {
-        mission.divideColors();
-    },
-    GetPlayerName: (req, res) => {
-        let id = req.body.id;
-        User.findOne({'id': id})
-            .then(result => {
-                if (result) {
-                    res.send(result.user_name);
-                } else {
-                    res.send("The user does not exist, try again");
-                }
-            })
-            .catch(err => console.log(err));
+    moveColor: (req,res) => {
+        console.log(req.body.moveDetails);
+        res.send(mission.moveColor(req.body.moveDetails));
     }
 
 }

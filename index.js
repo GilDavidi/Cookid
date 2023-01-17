@@ -48,6 +48,7 @@ app.use('/groups',groupsRouter);
     console.log("server its listening on port 3001");});
 
 
+
 const io = socket(serverExpress);
 
 const session = require("express-session")({
@@ -78,78 +79,112 @@ const isPupilConnected =(id)=>{
     });
     return result;
 }
-io.on('connection',(client) =>
-    {
+
+const switchSocketId =(id,socketId)=>
+{
+    pupilSockets.pupils.forEach(
+        (pupil)=> {
+            if (pupil.id == id)
+                pupil.socketId = socketId;
+        });
+}
+io.on('connection',(client) => {
         // Save the socket id in the session
         client.handshake.session.socketId = client.id;
         client.handshake.session.save();
         connection++;
-        client.on('disconnect', ()=> {
+        client.on('disconnect', () => {
             connection--;
         });
 
-        client.on('pupilConnected',(pupilDetails)=>
-        {
-            let result= isPupilConnected(pupilDetails.id);
+        client.on('pupilConnected', (pupilDetails) => {
+            let result = isPupilConnected(pupilDetails.id);
 
-            if(result!=false)
-            {
+            if (result != false) {
                 io.sockets.sockets.forEach((socketPupil) => {
                     // If given socket id is exist in list of all sockets, kill it
-                    if(socketPupil.id == result) {
+                    if (socketPupil.id == result) {
                         io.to(socketPupil.id).emit('close');
                     }
                 });
 
             }
 
-            pupilSockets.pupils.push({id:pupilDetails.id,socketId:client.id});
+            pupilSockets.pupils.push({id: pupilDetails.id, socketId: client.id});
 
-            let pupilJSONDetails={};
-            pupilJSONDetails.id=pupilDetails.id;
-            pupilJSONDetails.name=pupilDetails.name;
+            let pupilJSONDetails = {};
+            pupilJSONDetails.id = pupilDetails.id;
+            pupilJSONDetails.name = pupilDetails.name;
             axios.post(`${URL}/groups/addPupil`, pupilJSONDetails)
-                .then( (pupilListResponse)=> {
-                    if(teacherSocketId )
-                    {
-                        io.to(teacherSocketId).emit('updatePupilList',pupilListResponse.data);
+                .then((pupilListResponse) => {
+                    if (teacherSocketId) {
+                        io.to(teacherSocketId).emit('updatePupilList', pupilListResponse.data);
                     }
                     console.log(`Pupil with id ${pupilDetails.id}  and  connected`);
 
                 })
                 .catch(err => {
-                    console.log("here");
                     console.error(err.message);
                 })
 
 
         })
 
-        client.on('teacherConnected',() =>{
-            teacherSocketId=client.id;
-            console.log("The Teacher connected")});
-        client.on('saveGroups',(groups)=>{
+        client.on('teacherConnected', () => {
+            teacherSocketId = client.id;
+            console.log("The Teacher connected")
+        });
+        client.on('saveGroups', (groups) => {
             for (const key in groups) {
-                if (groups.hasOwnProperty(key)) {
+                if (groups.hasOwnProperty(key) && groups[key].length) {
                     const element = groups[key];
                     for (let i = 0; i < element.length; i++) {
                         const pupilSocket = isPupilConnected(element[i].id);
-                        io.to(pupilSocket).emit('startMission',`${URL}/game/PaintCanvas.html?userId=${element[i].id}&userName=${element[i].name}&groupId=${key}`);
+                        io.to(pupilSocket).emit('startMission', `${URL}/game/PaintCanvas.html?userId=${element[i].id}&userName=${element[i].name}&groupId=${key}`);
                     }
+                    let groupIdJSON = {};
+                    groupIdJSON.groupId = key;
+                    groupIdJSON.group = groups[key];
+                    axios.post(`${URL}/game/StartMissionByGroupId`, groupIdJSON)
+                        .then(() => {
+                            console.log(`Server Game Started to ${groupIdJSON.groupId}`);
+                        })
+                        .catch(err => {
+                            console.error(err.message);
+                        })
+
                 }
             }
 
         });
-        client.on('addPupilToGroup',(pupilDetails)=>{
-
+        client.on('addPupilToGroup', (pupilDetails) => {
+            switchSocketId(pupilDetails.id, client.id);
             client.join(pupilDetails.groupId);
         })
 
-        client.on('sendBoard',(canvasImg)=>{
-            io.to('group1').emit('updateBoard',canvasImg);
+        client.on('sendBoard', (canvasImg) => {
+            io.to('group1').emit('updateBoard', canvasImg);
+        })
+
+        client.on('askColor', (requestDetails) => {
+            const pupilSocket = isPupilConnected(requestDetails.idPupilGive);
+            io.to(pupilSocket).emit('showAskColor',requestDetails);
+        })
+        client.on('moveColor',(moveDetails)=>{
+            let groupToEmit= moveDetails.groupId;
+           let colorMoveDetails={};
+            colorMoveDetails.moveDetails=moveDetails;
+            axios.post(`${URL}/game/moveColor`, colorMoveDetails)
+                .then((playersColorUpdate) => {
+                    io.to(groupToEmit).emit('updateColors',playersColorUpdate.data);
+                })
+                .catch(err => {
+                    console.error(err.message);
+                })
+
+
         })
     }
-
 );
 
 
