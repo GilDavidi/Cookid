@@ -74,7 +74,7 @@ const updateColors =(playerColors) =>
 {
     if(isTeacher)
     {
-        ColorSelection.css('display','none');
+        ColorSelection.classList.add("modal-open");
     }
     $.get(`${URL}/game/GetRequestPicture`)
         .done(imgURL => {
