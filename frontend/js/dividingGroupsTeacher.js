@@ -4,6 +4,7 @@ const URL = window.location.origin;
 
 socket.emit('teacherConnected');
 
+socket.on('gameControlPage',link=>{window.location.replace(link)});
 
 $("document").ready(() => {
     let table = document.getElementById('student-table');

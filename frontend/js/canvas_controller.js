@@ -3,6 +3,7 @@ let urlParams = new URLSearchParams(window.location.search);
 let userId = urlParams.get('userId');
 let groupId = urlParams.get('groupId');
 let userName = urlParams.get('userName');
+let isTeacher = urlParams.get('isTeacher');
 let playerJson={};
 playerJson.id=userId;
 playerJson.groupId=groupId;
@@ -33,7 +34,7 @@ const updateColors =(playerColors) =>
     for (let key in playerColors)
     {
         //fill my colors
-        if(key==userId)
+        if(key==userId && !isTeacher)
         {
             for (const value of playerColors[key].colors) {
                 ColorSelection.innerHTML += `<div class="paint" style="background:${value}" id="${value}" onClick="color(this)" ></div>`;
@@ -71,6 +72,10 @@ const updateColors =(playerColors) =>
 
  const startGame = () =>
 {
+    if(isTeacher)
+    {
+        ColorSelection.classList.add("modal-open");
+    }
     $.get(`${URL}/game/GetRequestPicture`)
         .done(imgURL => {
             $('#imageContainerId').attr('src',imgURL);

@@ -27,7 +27,7 @@ h1{
     position: absolute;
     -webkit-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    transform: rotate(-5deg);
     top: 15vh;
     left: 0;
 }
