@@ -1,11 +1,31 @@
 let Jimp = require('jimp');
-
-const compareImages = async () =>
+const compareImages = async (img1,img2) =>
 {
-    const jimage1 = await Jimp.read('frontend/images/paint1.png');
-    const jimage2 = await Jimp.read('frontend/images/paint1.png');
-    const width = jimage1.bitmap.width;
-    let diff = Jimp.diff(jimage1, jimage2, .1);
-    console.log("Percent Difference - ", diff.percent);
+    const image1Data = await Jimp.read(Buffer.from(img1.replace(/^data:image\/png;base64,/, ""), 'base64'));
+    let newImg2= img2.replace('../images/', 'frontend/images/');
+    const image2Data = await Jimp.read(newImg2);
+
+    let totalDiff = 0;
+
+    image1Data.scan(0, 0, image1Data.bitmap.width, image1Data.bitmap.height, function(x, y, idx) {
+        const image1R = this.bitmap.data[idx + 0];
+        const image1G = this.bitmap.data[idx + 1];
+        const image1B = this.bitmap.data[idx + 2];
+
+        const image2R = image2Data.bitmap.data[idx + 0];
+        const image2G = image2Data.bitmap.data[idx + 1];
+        const image2B = image2Data.bitmap.data[idx + 2];
+
+        totalDiff += Math.abs(image1R - image2R) + Math.abs(image1G - image2G) + Math.abs(image1B - image2B);
+    });
+
+    const totalPixels = image1Data.bitmap.width * image1Data.bitmap.height * 3;
+    const meanAbsoluteError = totalDiff / totalPixels;
+    const similarity = 100 - (meanAbsoluteError / 255) * 100;
+    const similarityFix= similarity.toFixed(2);
+    console.log("Similarity: " + similarityFix+ "%");
+    return similarityFix;
+
 }
-compareImages();
+
+module.exports.compareImages=compareImages;

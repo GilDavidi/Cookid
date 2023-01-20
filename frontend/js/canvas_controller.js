@@ -1,4 +1,3 @@
-
 const socket = io();
 let urlParams = new URLSearchParams(window.location.search);
 let userId = urlParams.get('userId');
@@ -16,6 +15,7 @@ socket.emit('addPupilToGroup',playerJson);
 let canvas = document.getElementById('can');
 let ctx = canvas.getContext("2d");
 const URL = window.location.origin;
+let canvasImg;
 let  flag = false,
     prevX = 0,
     currX = 0,
@@ -162,12 +162,11 @@ const draw = () => {
         ctx.lineWidth = y;
         ctx.stroke();
         ctx.closePath();
-        let canvasImg = canvas.toDataURL();
-    console.log('Draw Board',canvasImg);
+        canvasImg = canvas.toDataURL();
+
     socket.emit('sendBoard',canvasImg);
     }
 socket.on('updateBoard',(canvasImg)=>{
-    console.log('Updating Board',canvasImg);
     let img = new Image();
     img.src = canvasImg;
     ctx.drawImage(img, 0, 0);
@@ -228,6 +227,27 @@ setInterval(function() {
 
     // Display the time remaining on the page
     document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
+
+    if(minutes==9 && seconds ==10)
+    {
+
+        let missionEnd={};
+        let image = canvas.toDataURL("image/png");
+        missionEnd.endMissionDetails={};
+        missionEnd.endMissionDetails.groupId=groupId;
+        missionEnd.endMissionDetails.img=image;
+        console.log('mission end');
+        $.post(`${URL}/game/endMission`,missionEnd)
+            .done(linkEndMission =>
+                {
+                    window.location.replace(linkEndMission);
+                }
+
+            )
+            .fail((xhr, status, error) => {
+                console.error("failed send to server " + error);
+            });
+    }
 }, 1000);
 
 

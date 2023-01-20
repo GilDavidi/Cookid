@@ -3,6 +3,7 @@ module.exports= class Player {
     id=0;
     name="";
     colors=[];
+    score=0;
 
     constructor(id,name) {
         this.id=id;
@@ -20,4 +21,9 @@ module.exports= class Player {
             this.colors.splice(index, 1);
         }
     }
+    setScore=(score)=>
+    {
+          this.score=score;
+    }
+    getScore=()=>{return this.score}
 }
