@@ -21,76 +21,46 @@
 <header>
     <img class="artboard-14x-1-1" src="../images/logo.png" />
 </header>
-<h1>חלוקה לקבוצות</h1>
-
-
-
-
-
-    <div class="container">
-        <div class="group-control">
-            <div class="group-container">
-
-                <!-- Add six group divs -->
-                <div class="group" id="group1" ondrop="drop(event)" ondragover="allowDrop(event)" >
-                    <h3>קבוצה 1</h3>
-                    <ul></ul>
-                </div>
-
-                <div class="group" id="group2" ondrop="drop(event)"  ondragover="allowDrop(event)" >
-                    <h3>קבוצה 2</h3>
-                    <ul></ul>
-                </div>
-
-                <div class="group"  id="group3"ondrop="drop(event)"   ondragover="allowDrop(event)" >
-                    <h3>קבוצה 3</h3>
-                    <ul></ul>
-                </div>
-
-                <div class="group"  id="group4"ondrop="drop(event)"  ondragover="allowDrop(event)">
-                    <h3>קבוצה 4</h3>
-                    <ul></ul>
-                </div>
-
-                <div class="group"  id="group5"ondrop="drop(event)"  ondragover="allowDrop(event)">
-                    <h3>קבוצה 5</h3>
-                    <ul></ul>
-                </div>
-
-                <div class="group" id="group6" ondrop="drop(event)"   ondragover="allowDrop(event)" >
-                    <h3>קבוצה 6</h3>
-                    <ul></ul>
-                </div>
-            </div>
-
-            <div class="input-section">
-                <input type="submit" value="שמור קבוצות" onclick="saveGroups()">
-            </div>
-
-        </div>
-
+<div class="container">
+    <h1>חלוקה לקבוצות</h1>
+    <div class="table-container">
         <table id="student-table">
             <tr>
-                <th id="th_h"><bold>תלמידים</bold></th>
+                <th>תלמידים מחוברים</th>
             </tr>
-            <tbody>
-            <tr>
-                <td draggable="true" ondragstart="drag(event)" id="3">דוד בן גוריון</td>
-                <td draggable="true" ondragstart="drag(event)" id="2">לוי אשכול</td>
-                <td draggable="true" ondragstart="drag(event)" id="1">יצחק רבין</td>
-                <td draggable="true" ondragstart="drag(event)" id="4">יוסף טרומפלדור</td>
-                <td draggable="true" ondragstart="drag(event)" id="6">מנחם בגין</td>
-                <td draggable="true" ondragstart="drag(event)" id="7">יצחק שמיר</td>
-                <td draggable="true" ondragstart="drag(event)" id="8">בנימין נתניהו</td>
-                <td draggable="true" ondragstart="drag(event)" id="9">אהוד ברק</td>
-                <td draggable="true" ondragstart="drag(event)" id="10">גולדה מאיר</td>
-            </tr>
-            </tbody>
         </table>
     </div>
+    <div class="group-container">
 
+        <div class="group" id="group1" ondrop="drop(event)" ondragover="allowDrop(event)" >
+            <h3>קבוצה 1</h3>
+            <ul></ul>
+        </div>
+        <div class="group" id="group2" ondrop="drop(event)"  ondragover="allowDrop(event)" >
+            <h3>קבוצה 2</h3>
+            <ul></ul>
+        </div>
+        <div class="group"  id="group3"ondrop="drop(event)"   ondragover="allowDrop(event)" >
+            <h3>קבוצה 3</h3>
+            <ul></ul>
+        </div>
+        <div class="group"  id="group4"ondrop="drop(event)"  ondragover="allowDrop(event)">
+            <h3>קבוצה 4</h3>
+            <ul></ul>
+        </div>
+        <div class="group"  id="group5"ondrop="drop(event)"  ondragover="allowDrop(event)">
+            <h3>קבוצה 5</h3>
+            <ul></ul>
+        </div>
+        <div class="group" id="group6" ondrop="drop(event)"   ondragover="allowDrop(event)" >
+            <h3>קבוצה 6</h3>
+            <ul></ul>
+        </div>
+    </div>
 </div>
-
+<div class="input-section">
+    <input type="submit" value="שמור קבוצות" onclick="saveGroups()">
+</div>
 
 </body>
 

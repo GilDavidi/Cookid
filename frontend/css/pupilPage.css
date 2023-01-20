@@ -75,11 +75,12 @@ input[type="submit"]
 }
 .container {
     border-radius: var(--br-md);
-    background-color: var(--color-white);
-    border: 7px solid var(--color-teal);
+    background-color:  #007068;
+    border: 7px solid  #007068;
     box-sizing: border-box;
     padding: 5px 40px;
     margin: 20px auto auto;
+    color: white;
 }
 label {
     font-size: 30px;

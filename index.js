@@ -155,7 +155,7 @@ io.on('connection',(client) => {
                         .catch(err => {
                             console.error(err.message);
                         })
-
+                    client.emit('gameControlPage',`${URL}/game/PaintCanvas.html?isTeacher=true`);
                 }
             }
 
