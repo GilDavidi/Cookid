@@ -7,6 +7,7 @@ gameRouter.post('/StartMissionByGroupId',gameController.StartMissionByGroupId);
 gameRouter.get('/GetRequestPicture',gameController.GetRequestPicture);
 gameRouter.get('/getPlayersColors',gameController.getPlayersColors);
 gameRouter.post('/moveColor',gameController.moveColor);
+gameRouter.post('/endMission',gameController.endMission);
 
 
 module.exports = gameRouter;

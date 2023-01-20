@@ -1,17 +1,24 @@
 
 let Player = require('./Player');
+let scoreAlgorithm = require('../AlgorithmScore/DirecectedGraph');
+let imageCompare =  require('../compareImages/compareImages');
+
 
 module.exports= class MissionPaint {
     colors=["red","green","blue","yellow","orange","black","white"];
     Players = {};
+    successRate=0;
     ReqPicture="";
     groupId="";
     constructor(groupId,groupPlayers){
         this.groupId= groupId;
+        let arrayPlayers= [];
         for (const key in groupPlayers)
         {
+            arrayPlayers.push(groupPlayers[key].id);
             this.Players[groupPlayers[key].id]=new Player(groupPlayers[key].id,groupPlayers[key].name);
         }
+        scoreAlgorithm.setAllStudent(arrayPlayers);
         let randomNumber = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
         this.ReqPicture=`../images/paint${randomNumber}.png`;
 
@@ -52,7 +59,29 @@ module.exports= class MissionPaint {
                 this.Players[key].remove_color(moveDetails.color)
             }
         }
+        scoreAlgorithm.addTransfer(moveDetails.idPupilGive,moveDetails.idPupilAsk,moveDetails.color);
         return this.getPlayersColors();
+    }
+    endMission=async (endMissionDetails)=>
+    {
+
+        //compare images
+         await imageCompare.compareImages(endMissionDetails.img,this.ReqPicture).then(successRate=>
+               {
+                   this.successRate=successRate;
+
+               }
+
+           )
+        //score pupils
+        for (let key in this.Players){
+            this.Players[key].setScore(scoreAlgorithm.scoreStudent(key)) ;
+            console.log(`student: ${key} receive  ${this.Players[key].getScore()}`);
+        }
+
+        return this.successRate;
+        //save the mission in previous game db
+
     }
 
 }

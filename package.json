@@ -8,6 +8,7 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "express-socket.io-session": "^1.3.5",
+    "file-saver": "^2.0.5",
     "image-size": "^1.0.2",
     "init": "^0.1.2",
     "jimp": "^0.16.2",
@@ -24,5 +25,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "start": "node index.js"
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.5"
   }
 }

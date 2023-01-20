@@ -1,66 +1,49 @@
-// const d3 = require("d3");
-//
-// // Create the directed graph
-// const graph = d3.select("body")
-//     .append("svg")
-//     .attr("width", 600)
-//     .attr("height", 600)
-//     .append("g")
-//     .attr("transform", "translate(50, 50)");
-//
-// // Create the nodes
-// const pupils = [
-//     {name: "Pupil 1"},
-//     {name: "Pupil 2"},
-//     {name: "Pupil 3"},
-//     {name: "Pupil 4"}
-// ];
-//
-// const nodes = graph.selectAll("circle")
-//     .data(pupils)
-//     .enter()
-//     .append("circle")
-//     .attr("r", 30)
-//     .attr("cx", function (d, i) {
-//         return i * 150;
-//     })
-//     .attr("cy", function (d, i) {
-//         return i * 100;
-//     });
-//
-// // Create the edges
-// const edges = graph.selectAll("line");
-//
-// // Function to check if transfer between pupils is successful
-// function checkTransfer(source, target) {
-//     //assuming you have the transfer data or a way to check if the transfer is successful
-//     if (transferSuccess) {
-//         edges.data([{ source: source, target: target }])
-//             .enter()
-//             .append("line")
-//             .attr("x1", function(d) { return d.source.x; })
-//             .attr("y1", function(d) { return d.source.y; })
-//             .attr("x2", function(d) { return d.target.x; })
-//             .attr("y2", function(d) { return d.target.y; });
-//     } else {
-//         console.log("Transfer not successful");
-//     }
-// }
-//
-// // Example usage
-// checkTransfer(pupils[0], pupils[1]);
-//
-// // Add labels to the nodes
-// const labels = graph.selectAll("text")
-//     .data(pupils)
-//     .enter()
-//     .append("text")
-//     .text(function (d) {
-//         return d.name;
-//     })
-//     .attr("x", function (d, i) {
-//         return i * 150;
-//     })
-//     .attr("y", function (d, i) {
-//         return i * 100;
-//     });
+
+
+// Create an empty adjacency list
+const graph = new Map();
+
+const setAllStudent =(students) => {
+    for(const student of students)
+        {
+            graph.set(student, []);
+        }
+}
+
+// Add edges to the graph for successful color transfers
+    const addTransfer = (giver, receiver, color) => {
+            graph.get(giver).push({student: receiver, color});
+            graph.get(receiver).push({student: giver, color});
+    };
+
+
+// Function to count the number of rainbows that pass through a student
+const scoreStudent = (student) => {
+    let count = 0;
+
+    const dfs = (student, visited = new Set(), currentRainbow = new Set()) => {
+        visited.add(student);
+        for (const neighbor of graph.get(student)) {
+            if (!visited.has(neighbor.student)) {
+                currentRainbow.add(neighbor.color);
+               // if (currentRainbow.size === colors.length) {
+                    count++;
+                //} else {
+                //    dfs(neighbor.student, visited, currentRainbow);
+               // }
+                currentRainbow.delete(neighbor.color);
+            }
+        }
+        visited.delete(student);
+    };
+
+    dfs(student);
+    return count*5;
+};
+
+
+
+
+module.exports.setAllStudent =setAllStudent;
+module.exports.addTransfer=addTransfer;
+module.exports.scoreStudent=scoreStudent;
