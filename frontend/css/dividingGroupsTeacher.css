@@ -4,6 +4,9 @@ body {
     background-color: #d7f9f6;
     font-family: Assistant;
 }
+h3{
+    margin: 0 auto;
+}
 .tableAndGroups
 {
     display: flex;
@@ -44,6 +47,7 @@ tr:first-child {
     justify-content: center;
     margin: 2.5% auto;
 }
+
 .input-section label {
     margin-right: 10px;
 }
@@ -65,18 +69,25 @@ tr:first-child {
     font-weight: bold;
     cursor: pointer;
 }
+
+.group .input-section input[type="submit"]
+{
+    display: none;
+    margin: 60%;
+    padding: 10px 22px;
+    font-size: 16px;
+}
 .group-container {
     position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 20px;
     max-width: 630px;
     margin:0px auto;
 }
 .group {
     width: 200px; /* Adjust the width of the group element */
-    height: 200px;
+    height: 250px;
     border: 1px solid white;
     border-radius: 4px;
     background-color: white;

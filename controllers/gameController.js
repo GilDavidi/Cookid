@@ -44,7 +44,7 @@ module.exports = {
                 if (error) {
                     console.log(error);
                 } else {
-                    console.log("Document inserted successfully", doc);
+                    console.log("Mission saved successfully", doc);
                 }
             });
         }
