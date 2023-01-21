@@ -4,7 +4,6 @@ const URL = window.location.origin;
 $("document").ready(() => {
     $.get(`${URL}/previousGames/getAllPreviousGames`)
         .done((result) => {
-            console.log(result);
                 const row = table.insertRow();
                 const cell1 = row.insertCell(0);
                 const cell2 = row.insertCell(1);

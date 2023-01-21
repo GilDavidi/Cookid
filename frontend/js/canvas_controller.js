@@ -133,8 +133,8 @@ const findxy = (res, e) => {
     if (res == 'down') {
         prevX = currX;
         prevY = currY;
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
+        currX = e.pageX - canvas.offsetLeft;
+        currY = e.pageY - canvas.offsetTop;
 
         flag = true;
         dot_flag = true;
@@ -153,8 +153,8 @@ const findxy = (res, e) => {
         if (flag) {
             prevX = currX;
             prevY = currY;
-            currX = e.clientX - canvas.offsetLeft;
-            currY = e.clientY - canvas.offsetTop;
+            currX = e.pageX - canvas.offsetLeft;
+            currY = e.pageY - canvas.offsetTop;
             draw();
         }
     }
@@ -203,13 +203,6 @@ const color = (obj) => {
         y = 2;
 
     }
-    const draw_rec = () => {
-        console.log("draw rectangle on canvas");
-        ctx.beginPath();
-        ctx.fillStyle = x;
-        ctx.fillRect(currX, currY, 2, 2);
-        ctx.closePath();
-    }
 //Timer JS
 // Calculate the time 10 minutes from now
 let deadline = new Date().getTime() + (10 * 60 * 1000);
@@ -233,7 +226,8 @@ setInterval(function() {
     // Display the time remaining on the page
     document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
 
-    if(minutes==9 && seconds ==50)
+    // if(minutes==9 && seconds ==50)
+    if (minutes==50)
     {
 
         let missionEnd={};
@@ -241,6 +235,7 @@ setInterval(function() {
         missionEnd.endMissionDetails={};
         missionEnd.endMissionDetails.groupId=groupId;
         missionEnd.endMissionDetails.img=image;
+        missionEnd.endMissionDetails.isTeacher = isTeacher;
         console.log('mission end');
         $.post(`${URL}/game/endMission`,missionEnd)
             .done(linkEndMission =>
