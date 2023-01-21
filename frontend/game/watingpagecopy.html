@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Waiting page</title>
+
+    <link rel="stylesheet" href="../css/waiting_pagecopy.css">
+    <!-- Favicon -->
+    <link href="../favicon.ico" rel="icon" />
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous"></script>
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Assistant:wght@700&display=swap"
+    />
+    <script src="../socket.io/socket.io.js"></script>
+    <script src="../js/waiting_page.js"></script>
+</head>
+<body>
+
+<header>
+    <img class="artboard-14x-1-1" src="../images/logo.png" />
+</header>
+
+<h1>שלום תלמיד</h1>
+
+<div class="dice">
+
+
+    <div class="face first-face">
+        <div class="dot"></div>
+    </div>
+
+    <div class="face second-face">
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="face third-face">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="face fourth-face">
+        <div class="column">
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="column">
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div class="face fifth-face">
+        <div class="column">
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="column">
+            <div class="dot"></div>
+        </div>
+        <div class="column">
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div class="face sixth-face">
+        <div class="column">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="column">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<p id="waiting_message">...אנא המתן</p>
+
+<div class="hero">
+    <div class="Instructions">
+        <h3>הוראות משחק</h3>
+        <ol>
+            <li>השחקנים יחולקו לקבוצות</li>
+            <li> המשימה היא לצייר את הציור שמופיע במסך העליון מצד ימין</li>
+            <li> השחקנים צריכים להשתשמש  במשפך הצבעים שמצד ימין למטה </li>
+            <li>בשביל לבחור את הצבע  התלמידים צריכים ללחוץ על הצבע שהם רוצים </li>
+            <li>לאחר הבחירה הם יכולים לעבור לצייר במלבן מצד ימין  ולהתחיל לצייר </li>
+            <li>לשחקנים יש 10 דק להשלמת המשחק </li>
+            <li>השחקנים חייבים לשתף פעולה ולדבר בינהם בשביל להצליח  </li>
+
+        </ol>
+    </div>
+
+
+</div>
+
+
+</body>
+
+
+</html>
