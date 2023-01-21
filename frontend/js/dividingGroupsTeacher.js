@@ -91,7 +91,10 @@ function drag(event) {
 
 
 }
-
+function joinGroup()
+{
+    socket.emit('joinGroupTeacher',event.target.id);
+}
 
 function drop(event) {
     event.preventDefault();
@@ -162,6 +165,8 @@ function saveGroups() {
     let groupElements = document.querySelectorAll(".group");
     for (let i = 0; i < groupElements.length; i++) {
         let groupId=groupElements[i].id;
+        let id = groupId.substring(groupId.length-1);
+
         let studentElements = groupElements[i].querySelectorAll("li");
         let students = [];
         for (let j = 0; j < studentElements.length; j++) {
@@ -170,9 +175,15 @@ function saveGroups() {
             student.name=studentElements[j].innerHTML;
             students.push(student);
         }
+        if(studentElements.length>0)
+        {
+            $(`#${id}`).css('display','block');
+        }
         groups[groupId] = students;
     }
+
     console.log(groups);
+    $("input[value='שמור קבוצות']").css('display','none');
     socket.emit('saveGroups',groups);
 
 }

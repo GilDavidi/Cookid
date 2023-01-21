@@ -155,11 +155,17 @@ io.on('connection',(client) => {
                         .catch(err => {
                             console.error(err.message);
                         })
-                    client.emit('gameControlPage',`${URL}/game/PaintCanvas.html?isTeacher=true&groupId=1`);
                 }
             }
 
         });
+
+        client.on('joinGroupTeacher',(id)=> {
+            let group = `'group${id}'`;
+            client.join(group);
+            client.emit('gameControlPage',`${URL}/game/PaintCanvas.html?isTeacher=true&groupId=${id}`);
+        }
+    )
         client.on('addPupilToGroup', (pupilDetails) => {
             switchSocketId(pupilDetails.id, client.id);
             client.join(pupilDetails.groupId);
