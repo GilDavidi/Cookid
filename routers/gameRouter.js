@@ -8,6 +8,6 @@ gameRouter.get('/GetRequestPicture',gameController.GetRequestPicture);
 gameRouter.get('/getPlayersColors',gameController.getPlayersColors);
 gameRouter.post('/moveColor',gameController.moveColor);
 gameRouter.post('/endMission',gameController.endMission);
-
+gameRouter.get('/getEndMissionDetails',gameController.getEndMissionDetails);
 
 module.exports = gameRouter;

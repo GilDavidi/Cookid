@@ -27,14 +27,14 @@ table {
     margin-right: auto;
 }
 tr:nth-child(even) {background-color: #E0FFFF;}
-th, td {
-    border: 1px solid #00BFFF;
-    text-align: right;
+td, th {
+    border: 2px solid #83d9d2;
     padding: 8px;
+    text-align: center;
+    /*border-radius: 20px;*/
 }
-
-th {
-    background-color: #dddddd;
+tr:first-child {
+    background-color: white;
 }
 
 :root {

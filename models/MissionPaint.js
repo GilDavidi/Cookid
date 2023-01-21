@@ -36,6 +36,18 @@ module.exports= class MissionPaint {
         }
 
     }
+    getGroupId = () => {return this.groupId}
+    getPlayers = () => {
+        let players_scores = "";
+        for (const value of  Object.values(this.Players)){
+            players_scores += value.get_name();
+            players_scores += " : ";
+            players_scores += value.getScore();
+            players_scores += ", ";
+        }
+        players_scores = players_scores.slice(0, -2);
+        return players_scores;
+    }
     geReqPicture= () => {
         return this.ReqPicture;
     }
@@ -80,7 +92,6 @@ module.exports= class MissionPaint {
         }
 
         return this.successRate;
-        //save the mission in previous game db
 
     }
 
