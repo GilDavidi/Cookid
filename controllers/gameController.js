@@ -31,7 +31,20 @@ module.exports = {
             isMissionEnd=true;
             const format = 'HH:mm:ss DD.MM.YYYY';
             const today = moment().format(format);
-            console.log(req.body.endMissionDetails.isTeacher);
+
+            // get players and scores and send to database
+            const playersString = mission.getPlayers();
+            const playersArray = playersString.split(", ");
+            playersArray.forEach(playerString => {
+                let [name, score] = playerString.split(" : ");
+                score = parseInt(score);
+                User.findOneAndUpdate({ user_name: name }, { $inc: { score: score } }, { new: true }, (err, user) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
             if (!req.body.endMissionDetails.isTeacher){
                 res.send(`${URL}/game/gameOverPupil.html?similarity=${similarity}`);
             }
