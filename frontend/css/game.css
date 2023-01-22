@@ -188,6 +188,11 @@ h2{
 	border-radius: 50%;
 	cursor: pointer;
 }
+#eraser {
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
 
 .paint:hover {
 	cursor: pointer;
