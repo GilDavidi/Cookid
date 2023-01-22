@@ -180,28 +180,37 @@ const color = (obj) => {
         switch (obj.id) {
             case "green":
                 x = "green";
+                y = 2;
                 break;
             case "blue":
                 x = "blue";
+                y = 2;
                 break;
             case "red":
                 x = "red";
+                y = 2;
                 break;
             case "yellow":
                 x = "yellow";
+                y = 2;
                 break;
             case "orange":
                 x = "orange";
+                y = 2;
                 break;
             case "black":
                 x = "black";
+                y = 2;
                 break;
             case "white":
                 x = "white";
+                y = 2;
+                break;
+            case "turquoise":
+                x = "#d7f9f6";
+                y = 7;
                 break;
         }
-        y = 2;
-
     }
 //Timer JS
 // Calculate the time 10 minutes from now
@@ -226,7 +235,8 @@ setInterval(function() {
     // Display the time remaining on the page
     document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
 
-    if(minutes==9 && seconds ==50)
+    // if(minutes==9 && seconds ==50)
+    if (minutes == 50)
     {
         let missionEnd={};
         let image = canvas.toDataURL("image/png");
@@ -258,13 +268,7 @@ setInterval(function() {
 //         document.getElementById("canvasimg").style.display = "none";
 //     }
 // }
-//
-// function save() {
-//     document.getElementById("canvasimg").style.border = "2px solid";
-//     let dataURL = canvas.toDataURL();
-//     document.getElementById("canvasimg").src = dataURL;
-//     document.getElementById("canvasimg").style.display = "inline";
-// }
+
 
 // Get the wrapper
 
