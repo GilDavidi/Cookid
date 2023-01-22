@@ -5,6 +5,7 @@ const userSchema = new Schema({
     password: String,
     id: String,
     type: String,
+    score: Number,
 }, {collection: 'Users'});
 
 const User = model('User', userSchema);
