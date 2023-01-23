@@ -25,3 +25,7 @@ $("document").ready(() => {
             console.error("failed send to server" + error);
         });
 });
+function GoBackToDividingGroups()
+{
+    window.location.replace(`../groups/dividingGroupsTeacher.html`);
+}

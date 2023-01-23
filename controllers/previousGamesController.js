@@ -8,7 +8,6 @@ module.exports = {
         Games.find({})
             .then(result => {
                 if (result) {
-                    console.log(result)
                     res.send(result);
                 } else {
                     res.send("No previous games exists");
