@@ -23,6 +23,10 @@ $("document").ready(() => {
                 if (userCheckServer == "The user exist") {
                     window.location.replace(`../groups/dividingGroupsTeacher.html`);
                 }
+                else
+                {
+                    document.getElementById("error").innerHTML = "המשתמש לא קיים במערכת, נסה שנית"
+                }
             })
             .fail((xhr, status, error) => {
                 console.error("failed send to server" + error);
@@ -41,6 +45,10 @@ $("document").ready(() => {
                 if (msg != "The user does not exist, try again")
                 {
                     window.location.replace(`../groups/waitingPagePupil.html?userId=${msg.id}&userName=${msg.name}`);
+                }
+                else
+                {
+                    document.getElementById("error").innerHTML = "המשתמש לא קיים במערכת, נסה שנית"
                 }
 
             })

@@ -164,3 +164,7 @@ input[type="password" i] {
     font-size: 17px;
     width: 205px;
 }
+#error {
+    color: red;
+    font-size: 23px;
+}

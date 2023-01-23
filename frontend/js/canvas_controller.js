@@ -75,6 +75,8 @@ const updateColors =(playerColors) =>
     if(isTeacher)
     {
         ColorSelection.classList.add("modal-open");
+        document.getElementById("turquoise").style.display = 'none';
+
     }
     $.get(`${URL}/game/GetRequestPicture`)
         .done(imgURL => {
@@ -130,6 +132,9 @@ const init = () => {
 
 
 const findxy = (res, e) => {
+    if (isTeacher){
+        return;
+    }
     if (res == 'down') {
         prevX = currX;
         prevY = currY;
@@ -160,6 +165,9 @@ const findxy = (res, e) => {
     }
 }
 const draw = () => {
+        if (isTeacher){
+           return;
+        }
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(currX, currY);
@@ -259,16 +267,6 @@ setInterval(function() {
 }, 1000);
 
 
-// NOT IN USE
-
-// function erase() {
-//     var m = confirm("Want to clear");
-//     if (m) {
-//         ctx.clearRect(0, 0, w, h);
-//         document.getElementById("canvasimg").style.display = "none";
-//     }
-// }
-
 
 // Get the wrapper
 
@@ -312,6 +310,9 @@ const convertColorName =(colorName)=>
 
 let moveColorDetails={};
 const colorAskPupil=()=> {
+    if (isTeacher){
+        return;
+    }
 // Get all elements with class "paint"
 const paintDivs = document.getElementsByClassName("paint");
 
@@ -342,6 +343,9 @@ for (let i = 0; i < paintDivs.length; i++) {
 
 const showAskColor =(studentName,colorName) =>
 {
+    if (isTeacher){
+        return;
+    }
     yesBtn.innerText="מאשר";
     noBtn.innerText="לא מאשר";
     modal.style.display = "block";
@@ -369,6 +373,9 @@ yesBtn.onclick = function() {
 
 socket.on('showAskColor',askMessage=>
     {
+        if (isTeacher){
+            return;
+        }
         moveColorDetails.color=askMessage.color;
         moveColorDetails.idPupilAsk= askMessage.idPupilAsk;
         moveColorDetails.idPupilGive= askMessage.idPupilGive;
