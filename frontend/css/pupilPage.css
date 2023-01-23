@@ -150,6 +150,10 @@ label {
     text-align: center;
     font-size: 50px;
 }
+#error {
+    color: red;
+    font-size: 25px;
+}
 
 table {
     position: relative;
