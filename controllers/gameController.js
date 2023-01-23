@@ -32,17 +32,22 @@ module.exports = {
             const format = 'HH:mm:ss DD.MM.YYYY';
             const today = moment().format(format);
 
-            // get players and scores and send to database
+            // get players and scores and save them to the database
             const playersString = mission.getPlayers();
             const playersArray = playersString.split(", ");
             playersArray.forEach(playerString => {
                 let [name, score] = playerString.split(" : ");
                 score = parseInt(score);
-                User.findOneAndUpdate({ user_name: name }, { $inc: { score: score } }, { new: true }, (err, user) => {
-                    if (err) {
-                        console.log(err);
-                    }
-                });
+                let connectionsPupil=mission.getPlayersWithoutName(name);
+                User.findOneAndUpdate({ user_name: name },
+                    { $inc: { score: score }, $push: { connections: { $each: connectionsPupil } } },
+                    { new: true },
+                    (err, user) => {
+                        if (err) {
+                            console.log(err.message);
+                        }
+                    });
+
             });
 
             if (!req.body.endMissionDetails.isTeacher){
