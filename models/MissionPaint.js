@@ -48,6 +48,16 @@ module.exports= class MissionPaint {
         players_scores = players_scores.slice(0, -2);
         return players_scores;
     }
+    getPlayersWithoutName = (name) => {
+        let players= [];
+        for (const value of  Object.values(this.Players)){
+            if(value.get_name()!=name)
+            {
+                players.push(Number(value.get_id()));
+            }
+        }
+        return players;
+    }
     geReqPicture= () => {
         return this.ReqPicture;
     }
