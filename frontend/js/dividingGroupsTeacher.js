@@ -96,6 +96,14 @@ function joinGroup()
     socket.emit('joinGroupTeacher',event.target.id);
 }
 
+function goToPreviousGames()
+{
+    window.location.replace(`${URL}/previousGames`);
+}
+function recommendedGroups()
+{
+    // Put here the code for splitting to recommended groups
+}
 function drop(event) {
     event.preventDefault();
     let data = event.dataTransfer.getData("text");

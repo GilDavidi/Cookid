@@ -42,10 +42,14 @@ td, th {
 tr:first-child {
     background-color: white;
 }
+#Buttons {
+    display: flex;
+    justify-content: center;
+}
 .input-section {
     display: flex;
     justify-content: center;
-    margin: 2.5% auto;
+    margin: 2.5%;
 }
 
 .input-section label {
