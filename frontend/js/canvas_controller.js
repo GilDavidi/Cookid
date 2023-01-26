@@ -29,6 +29,11 @@ let x = "black",
     y = 2;
 
 
+socket.on('updateLogTable',(message)=> {
+    console.log(message);
+});
+
+
 
 
 const updateColors =(playerColors) =>
@@ -172,6 +177,9 @@ const findxy = (res, e) => {
         }
     }
 }
+
+
+
 const draw = () => {
         if (isTeacher){
            return;
@@ -186,7 +194,7 @@ const draw = () => {
         canvasImg = canvas.toDataURL();
 
     socket.emit('sendBoard',canvasImg);
-    }
+    };
 socket.on('updateBoard',(canvasImg)=>{
     let img = new Image();
     img.src = canvasImg;
@@ -202,6 +210,8 @@ socket.on('updateLogTable',(message)=> {
         cell.innerHTML = message.moveDetails;
     }
 });
+
+
 
 const color = (obj) => {
         switch (obj.id) {

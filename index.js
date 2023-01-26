@@ -161,7 +161,9 @@ io.on('connection',(client) => {
         });
 
         client.on('joinGroupTeacher',(id)=> {
-            let group = `'group${id}'`;
+            let group = `group${id}`;
+            teacherSocketId=client.id;
+            console.log(teacherSocketId);
             client.join(group);
             client.emit('gameControlPage',`${URL}/game/PaintCanvas.html?isTeacher=true&groupId=${id}`);
         }
@@ -190,6 +192,7 @@ io.on('connection',(client) => {
                 .catch(err => {
                     console.error(err.message);
                 })
+            console.log(teacherSocketId);
             io.to(teacherSocketId).emit('updateLogTable',colorMoveDetails);
 
 
