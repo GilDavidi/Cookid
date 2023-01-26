@@ -4,6 +4,8 @@ let userId = urlParams.get('userId');
 let groupId = urlParams.get('groupId');
 let userName = urlParams.get('userName');
 let isTeacher = urlParams.get('isTeacher');
+const tableLogs = document.getElementById("Logs");
+
 let playerJson={};
 playerJson.id=userId;
 playerJson.groupId=groupId;
@@ -77,6 +79,12 @@ const updateColors =(playerColors) =>
         ColorSelection.classList.add("modal-open");
         document.getElementById("turquoise").style.display = 'none';
 
+
+    }
+    //for pupil remove the table log
+    else
+    {
+        tableLogs.style.display = 'none';
     }
     $.get(`${URL}/game/GetRequestPicture`)
         .done(imgURL => {
@@ -182,8 +190,19 @@ const draw = () => {
 socket.on('updateBoard',(canvasImg)=>{
     let img = new Image();
     img.src = canvasImg;
+    console.log(canvasImg);
     ctx.drawImage(img, 0, 0);
+
 })
+
+socket.on('updateLogTable',(message)=> {
+    if(isTeacher) {
+        const row = tableLogs.insertRow();
+        const cell = row.insertCell(0);
+        cell.innerHTML = message.moveDetails;
+    }
+});
+
 const color = (obj) => {
         switch (obj.id) {
             case "green":

@@ -190,6 +190,7 @@ io.on('connection',(client) => {
                 .catch(err => {
                     console.error(err.message);
                 })
+            io.to(teacherSocketId).emit('updateLogTable',colorMoveDetails);
 
 
         })
