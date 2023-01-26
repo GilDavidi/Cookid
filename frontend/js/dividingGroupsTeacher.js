@@ -100,9 +100,42 @@ function goToPreviousGames()
 {
     window.location.replace(`${URL}/previousGames`);
 }
+const clearRowFromTable =(studentName) =>
+{
+    const studentTable = document.getElementById("student-table");
+    const rows = studentTable.getElementsByTagName("tr");
+    for (let i = rows.length - 1; i >= 1; i--) {
+        const cells = rows[i].getElementsByTagName("td");
+        for (let j = 0; j < cells.length; j++) {
+            const cellText = cells[j].innerHTML;
+            if (cellText === studentName) {
+                studentTable.deleteRow(i);
+            }
+        }
+    }
+};
 function recommendedGroups()
 {
-    // Put here the code for splitting to recommended groups
+    $.get(`${URL}/groups/getRecommendedGroups`)
+        .done((groups) =>{
+                groups.forEach(function(group) {
+                    Object.keys(group).forEach((key) =>{
+                        const groupId = "group" + key;
+                        const groupElement = document.getElementById(groupId);
+                        const studentList = groupElement.getElementsByTagName("ul")[0];
+                        studentList.innerHTML = ""; // clear existing students
+                        group[key].forEach(function(student) {
+                            const studentName = student.split(':')[0];
+                            const studentId = student.split(':')[1];
+                            studentList.innerHTML += `<li ondragstart='drag(event)' id=${studentId}>` + studentName + "</li>";
+                            clearRowFromTable(studentName);
+                        });
+                    });
+                });
+        })
+        .catch((err)=>{
+            console.log(err.message);}
+        )
 }
 function drop(event) {
     event.preventDefault();
