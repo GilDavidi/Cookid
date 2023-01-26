@@ -190,9 +190,9 @@ const draw = () => {
 socket.on('updateBoard',(canvasImg)=>{
     let img = new Image();
     img.src = canvasImg;
-    console.log(canvasImg);
-    ctx.drawImage(img, 0, 0);
-
+    img.onload=() => {
+        ctx.drawImage(img, 0, 0);
+    }
 })
 
 socket.on('updateLogTable',(message)=> {
