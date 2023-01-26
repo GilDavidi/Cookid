@@ -76,6 +76,9 @@ module.exports = {
         GroupId = GroupId[GroupId.length - 1];
         endMissionJson[GroupId] = mission.getPlayers();
         res.send(endMissionJson);
+    },
+    getPlayerName:  (req,res) => {
+
     }
 
 }

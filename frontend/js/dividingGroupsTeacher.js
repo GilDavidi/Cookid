@@ -6,7 +6,9 @@ socket.emit('teacherConnected');
 
 socket.on('gameControlPage',link=>{window.location.replace(link)});
 
+
 $("document").ready(() => {
+
     let table = document.getElementById('student-table');
     const isStudentExist =(name) =>
     {
@@ -55,6 +57,7 @@ $("document").ready(() => {
     socket.on('updatePupilList',(pupilList)=>{
         updateTable(pupilList);
     });
+
 
 
 });
@@ -195,14 +198,18 @@ function drop(event) {
 
 
 
-
-
-
-
-
 // Add function to save groups to JSON object
 function saveGroups() {
+    // Get the wrapper
+    let wrapper = document.getElementById("wrapper");
+    // Get the modal element
+        let modal = document.getElementById("myModal");
+    // Get the yes and no buttons
+        const yesBtn = document.getElementById("yesBtn");
+    // Get the text element
+        const modalText = document.getElementById("modalText");
     let groups = {};
+    let isLengthGroupValid=true;
     let groupElements = document.querySelectorAll(".group");
     for (let i = 0; i < groupElements.length; i++) {
         let groupId=groupElements[i].id;
@@ -216,15 +223,39 @@ function saveGroups() {
             student.name=studentElements[j].innerHTML;
             students.push(student);
         }
-        if(studentElements.length>0)
+        if(students.length>=4 && students.length<=6 )
         {
             $(`#${id}`).css('display','block');
         }
+        else
+        {
+            if(students.length>0) {
+                isLengthGroupValid = false;
+            }
+        }
         groups[groupId] = students;
     }
+    if(isLengthGroupValid)
+    {
+        console.log(groups);
+        $("input[value='שמור קבוצות']").css('display','none');
+        socket.emit('saveGroups',groups);
+    }
+    else
+    {
 
-    console.log(groups);
-    $("input[value='שמור קבוצות']").css('display','none');
-    socket.emit('saveGroups',groups);
+        modal.style.display = "block";
+        wrapper.classList.add("modal-open");
+        modalText.innerHTML = "קיימת קבוצה אחת או יותר  שאינן בין 4 ל6 תלמידים";
+        yesBtn.onclick = function() {
+            modal.style.display = "none";
+            wrapper.classList.remove("modal-open");
+        }
 
+
+    }
+
+    // When the user clicks on the yes button
 }
+
+

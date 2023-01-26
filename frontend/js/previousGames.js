@@ -11,7 +11,7 @@ $("document").ready(() => {
                 cell1.innerHTML = "תאריך";
                 cell2.innerHTML = "מספר קבוצה";
                 cell3.innerHTML = "ניקוד התלמידים";
-            result.forEach(function(item){
+                result.forEach(function(item){
                 const row = table.insertRow();
                 const cell1 = row.insertCell(0);
                 const cell2 = row.insertCell(1);

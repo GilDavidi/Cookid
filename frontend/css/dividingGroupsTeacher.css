@@ -73,11 +73,16 @@ tr:first-child {
     font-weight: bold;
     cursor: pointer;
 }
+.joinButton
+{
+    position: absolute;
+    top:80%;
+    left:auto;
+}
 
 .group .input-section input[type="submit"]
 {
     display: none;
-    margin: 60%;
     padding: 10px 22px;
     font-size: 16px;
 }
@@ -90,6 +95,7 @@ tr:first-child {
     margin:0px auto;
 }
 .group {
+    position: relative;
     width: 200px; /* Adjust the width of the group element */
     height: 250px;
     border: 1px solid white;
@@ -113,4 +119,87 @@ tr:first-child {
 h1 {
     margin-top: 2.5%;
     font-size: 40px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    top: 50%; /* Center the modal vertically */
+    left: 50%; /* Center the modal horizontally */
+    transform: translate(-50%, -50%); /* Translate the modal to the center of the page */
+    width: 80%; /* Full width */
+    height: 80%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+}
+/* Add blur effect to the background when the modal is displayed */
+.modal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(5px);
+    z-index: -1;
+}
+/* The Modal Content Wrapper */
+.modal-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin-top: 15%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    align-items: center; /* center the text in the modal */
+
+
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* The yes and no button */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#yesBtn,
+#noBtn {
+    margin-left: 15px;
+    padding: 8px 20px;
+    border-radius: 5px;
+    background-color: #d7f9f6;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modal-open {
+    filter: blur(5px);
+}
+p
+{
+    text-align: center;
+    color: red;
 }
