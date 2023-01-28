@@ -267,7 +267,7 @@ setInterval(function() {
     // Display the time remaining on the page
     document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
 
-    if(minutes==9 && seconds ==50)
+    if(minutes==7 && seconds ==0)
     // if (minutes == 50)
     {
         let missionEnd={};
