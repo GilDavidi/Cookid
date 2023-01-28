@@ -293,8 +293,7 @@ th,td {
 	margin-top: 10px;
 }
 
-#yesBtn,
-#noBtn {
+.Buttons {
 	margin-left: 15px;
 	padding: 8px 20px;
 	border-radius: 5px;
@@ -303,4 +302,9 @@ th,td {
 	font-weight: bold;
 	cursor: pointer;
 }
-
+#yesBtn {
+	background-color: blue;
+}
+#noBtn {
+	background-color: red;
+}

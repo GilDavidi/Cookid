@@ -216,6 +216,8 @@ function saveGroups() {
             student.name=studentElements[j].innerHTML;
             students.push(student);
         }
+        console.log("this is studentElements.length")
+        console.log(studentElements.length)
         if(studentElements.length>0)
         {
             $(`#${id}`).css('display','block');
