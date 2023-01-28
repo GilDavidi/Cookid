@@ -267,8 +267,8 @@ setInterval(function() {
     // Display the time remaining on the page
     document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
 
-    // if(minutes==9 && seconds ==50)
-    if (minutes == 50)
+    if(minutes==9 && seconds ==50)
+    // if (minutes == 50)
     {
         let missionEnd={};
         let image = canvas.toDataURL("image/png");

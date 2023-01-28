@@ -223,6 +223,7 @@ function saveGroups() {
             student.name=studentElements[j].innerHTML;
             students.push(student);
         }
+
         if(students.length>=4 && students.length<=6 )
         {
             $(`#${id}`).css('display','block');
