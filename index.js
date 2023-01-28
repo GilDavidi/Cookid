@@ -82,7 +82,6 @@ const isPupilConnected =(id)=>{
     });
     return result;
 }
-
 const switchSocketId =(id,socketId)=>
 {
     pupilSockets.pupils.forEach(
@@ -99,7 +98,6 @@ io.on('connection',(client) => {
         client.on('disconnect', () => {
             connection--;
         });
-
         client.on('pupilConnected', (pupilDetails) => {
             let result = isPupilConnected(pupilDetails.id);
 
@@ -132,7 +130,6 @@ io.on('connection',(client) => {
 
 
         })
-
         client.on('teacherConnected', () => {
             teacherSocketId = client.id;
             console.log("The Teacher connected")
@@ -159,44 +156,42 @@ io.on('connection',(client) => {
             }
 
         });
-
         client.on('joinGroupTeacher',(id)=> {
-            let group = `group${id}`;
+            client.emit('gameControlPage',`${URL}/game/PaintCanvas.html?isTeacher=true&groupId=group${id}`);
+
+        });
+        client.on('addTeacherToGroup', (teacherDetails) => {
             teacherSocketId=client.id;
-            console.log(teacherSocketId);
-            client.join(group);
-            client.emit('gameControlPage',`${URL}/game/PaintCanvas.html?isTeacher=true&groupId=${id}`);
-        }
-    )
+            client.join(teacherDetails.groupId);
+        });
         client.on('addPupilToGroup', (pupilDetails) => {
             switchSocketId(pupilDetails.id, client.id);
             client.join(pupilDetails.groupId);
-        })
-
+        });
         client.on('sendBoard', (canvasImg) => {
             io.to('group1').emit('updateBoard', canvasImg);
-        })
-
+        });
         client.on('askColor', (requestDetails) => {
             const pupilSocket = isPupilConnected(requestDetails.idPupilGive);
             io.to(pupilSocket).emit('showAskColor',requestDetails);
         })
-        client.on('moveColor',(moveDetails)=>{
-            let groupToEmit= moveDetails.groupId;
+        client.on('moveColor',async (moveDetails)=>{
+           let groupToEmit= moveDetails.groupId;
            let colorMoveDetails={};
             colorMoveDetails.moveDetails=moveDetails;
-            axios.post(`${URL}/game/moveColor`, colorMoveDetails)
+            await axios.post(`${URL}/game/moveColor`, colorMoveDetails)
                 .then((playersColorUpdate) => {
                     io.to(groupToEmit).emit('updateColors',playersColorUpdate.data);
+                    io.to(teacherSocketId).emit('updateLogTable',moveDetails);
                 })
                 .catch(err => {
                     console.error(err.message);
                 })
-            console.log(teacherSocketId);
-            io.to(teacherSocketId).emit('updateLogTable',colorMoveDetails);
 
 
-        })
+
+
+        });
     }
 );
 

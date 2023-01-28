@@ -126,7 +126,9 @@
 
 const recomandedGroups = (pupils) => {
 
+
     console.log(pupils);
+
 
     // Initialize group lists
     let group1 = [];
@@ -135,6 +137,7 @@ const recomandedGroups = (pupils) => {
     let group4 = [];
     let group5 = [];
     let group6 = [];
+
 // Sort pupils by score in ascending order
     pupils.sort((a, b) => a.score - b.score);
     let pupilsPerGroup = 1;
@@ -152,6 +155,7 @@ const recomandedGroups = (pupils) => {
 // Iterate over groups
     if (pupils.length < 4) {
         // Iterate over pupils and add them to the first group
+
         for (let i = 0; i < pupils.length; i++) {
             group1.push(pupils[i].id);
         }
@@ -240,80 +244,12 @@ const recomandedGroups = (pupils) => {
             groups.push(group);
         }
     }
-    console.log(groups)
-    return groups
+
+
+    console.log(groups);
+    return groups;
 }
 
 
 module.exports.recomandedGroups=recomandedGroups;
 
-
-
-
-
-
-
-
-
-///const recomandedGroups =(pupils) => {
-//     // Check if there are less than 4 pupils
-//     if (pupils.length < 4) {
-//         console.log("Group 1: " + pupils.map(p => p.name).join(", "));
-//         return;
-//     }
-//
-//     // Sort the pupils by score in descending order
-//     pupils.sort((a, b) => b.score - a.score);
-//     let groups = [[]];
-//     let groupIndex = 0;
-//     let groupSize = 6;
-//
-//     // Check if any pupils have connections with each other
-//     let hasConnections = false;
-//     for (let i = 0; i < pupils.length; i++) {
-//         if (pupils[i].connections.length > 0) {
-//             hasConnections = true;
-//             break;
-//         }
-//     }
-//
-//     if (hasConnections) {
-//         // Assign pupils to groups based on previous connections
-//         for (let i = 0; i < pupils.length; i++) {
-//             const pupil = pupils[i];
-//             let added = false;
-//             for (let j = 0; j < groups.length; j++) {
-//                 for (let k = 0; k < groups[j].length; k++) {
-//                     if (pupil.connections.includes(groups[j][k].id)) {
-//                         groups[j].push(pupil);
-//                         added = true;
-//                         break;
-//                     }
-//                 }
-//                 if (added) break;
-//             }
-//             if (!added) {
-//                 if (groups[groupIndex].length < groupSize) {
-//                     groups[groupIndex].push(pupil);
-//                 } else {
-//                     groupIndex++;
-//                     groups[groupIndex] = [pupil];
-//                 }
-//             }
-//         }
-//     } else {
-//         // Assign pupils to groups with a maximum size of groupSize
-//         for (let i = 0; i < pupils.length; i++) {
-//             if (groups[groupIndex].length < groupSize) {
-//                 groups[groupIndex].push(pupil);
-//             } else {
-//                 groupIndex++;
-//                 groups[groupIndex] = [pupil];
-//             }
-//         }
-//     }
-//
-//     for (let i = 0; i < groups.length; i++) {
-//         console.log("Group " + (i + 1) + ": " + groups[i].map(p => p.name).join(", "));
-//     }
-// }
