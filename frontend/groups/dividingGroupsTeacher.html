@@ -18,6 +18,7 @@
     <script src="../js/dividingGroupsTeacher.js"></script>
 </head>
 <body>
+<div id="wrapper">
 <header>
     <img class="artboard-14x-1-1" src="../images/logo.png" />
 </header>
@@ -36,14 +37,14 @@
             <h3>קבוצה 1</h3>
             <ul></ul>
             <div class="input-section">
-                <input type="submit" value="הצטרף לקבוצה" onclick="joinGroup()" id="1">
+                <input type="submit" class="joinButton" value="הצטרף לקבוצה" onclick="joinGroup()" id="1">
             </div>
         </div>
         <div class="group" id="group2" ondrop="drop(event)"  ondragover="allowDrop(event)" >
             <h3>קבוצה 2</h3>
             <ul></ul>
             <div class="input-section">
-                <input type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="2">
+                <input type="submit" class="joinButton" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="2">
             </div>
 
         </div>
@@ -51,28 +52,28 @@
             <h3>קבוצה 3</h3>
             <ul></ul>
             <div class="input-section">
-                <input type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="3">
+                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="3">
             </div>
         </div>
         <div class="group"  id="group4"ondrop="drop(event)"  ondragover="allowDrop(event)">
             <h3>קבוצה 4</h3>
             <ul></ul>
             <div class="input-section">
-                <input type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="4">
+                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="4">
             </div>
         </div>
         <div class="group"  id="group5"ondrop="drop(event)"  ondragover="allowDrop(event)">
             <h3>קבוצה 5</h3>
             <ul></ul>
             <div class="input-section">
-                <input type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="5">
+                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="5">
             </div>
         </div>
         <div class="group" id="group6" ondrop="drop(event)"   ondragover="allowDrop(event)" >
             <h3>קבוצה 6</h3>
             <ul></ul>
             <div class="input-section">
-                <input type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="6">
+                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="6">
             </div>
         </div>
     </div>
@@ -89,6 +90,17 @@
     </div>
 </div>
 
+</div>
+<div id="myModal" class="modal">
+    <div class="modal-content-wrapper">
+        <div class="modal-content">
+            <p id="modalText"></p>
+            <div class="button-group">
+                <button id="yesBtn">אישור</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
-
+</html>

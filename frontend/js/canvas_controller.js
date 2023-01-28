@@ -14,7 +14,13 @@ let askDetails={};
 askDetails.name=userName;
 let ColorSelection=  document.getElementById('ColorSelection');
 let table=  document.getElementById('table-bordered');
-socket.emit('addPupilToGroup',playerJson);
+if(!isTeacher) {
+    socket.emit('addPupilToGroup', playerJson);
+}
+else
+{
+    socket.emit('addTeacherToGroup', playerJson);
+}
 let canvas = document.getElementById('can');
 let ctx = canvas.getContext("2d");
 const URL = window.location.origin;
@@ -29,9 +35,6 @@ let x = "black",
     y = 2;
 
 
-socket.on('updateLogTable',(message)=> {
-    console.log(message);
-});
 
 
 
@@ -81,9 +84,7 @@ const updateColors =(playerColors) =>
 {
     if(isTeacher)
     {
-        ColorSelection.classList.add("modal-open");
         document.getElementById("turquoise").style.display = 'none';
-
 
     }
     //for pupil remove the table log
@@ -113,7 +114,9 @@ const clearColors= ()=>
         let table = document.getElementById("table-bordered");
         let rows = table.getElementsByTagName("tr");
         for (let i = rows.length-1; i > 0; i--) {
-            table.removeChild(rows[i]);
+            if(rows[i].id!="turquoise") {
+                table.removeChild(rows[i]);
+            }
         }
         let colorSelection = document.getElementById("ColorSelection");
         while (colorSelection.firstChild) {
@@ -202,14 +205,6 @@ socket.on('updateBoard',(canvasImg)=>{
         ctx.drawImage(img, 0, 0);
     }
 })
-
-socket.on('updateLogTable',(message)=> {
-    if(isTeacher) {
-        const row = tableLogs.insertRow();
-        const cell = row.insertCell(0);
-        cell.innerHTML = message.moveDetails;
-    }
-});
 
 
 
@@ -336,6 +331,54 @@ const convertColorName =(colorName)=>
     }
 
 }
+
+socket.on('updateLogTable',(message)=> {
+
+    let ids = table.getElementsByTagName("th");
+
+    let myString ="בוצעה העברת צבע ";
+    myString +=convertColorName(message.color);
+    let askerName;
+    let giverName;
+
+    for (let i = 0; i < ids.length; i++) {
+        if (ids[i].id === message.idPupilAsk)
+        {
+            askerName= ids[i].innerHTML;
+        }
+        if (ids[i].id ===message.idPupilGive )
+        {
+            giverName=ids[i].innerHTML;
+        }
+    }
+    myString+= " מ";
+    myString+= askerName;
+    myString+= " ל";
+    myString+= giverName;
+    let d = new Date();
+    let hours = d.getHours();
+    let minutes = d.getMinutes();
+    let seconds = d.getSeconds();
+    console.log(myString);
+    console.log(hours + ":" + minutes + ":" + seconds);
+
+    // Create a new row
+    let newRow = document.createElement("tr");
+    let timeCell = document.createElement("th");
+    timeCell.innerText=hours + ":" + minutes + ":" + seconds;
+    newRow.appendChild(timeCell);
+    let messageCell = document.createElement("th");
+    messageCell.innerText=myString;
+    newRow.appendChild(messageCell);
+    tableLogs.appendChild(newRow);
+
+
+});
+
+
+
+
+
 
 let moveColorDetails={};
 const colorAskPupil=()=> {
