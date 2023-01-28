@@ -2,6 +2,10 @@ body {
     margin: 0;
     line-height: normal;
     font-family: var(--font-assistant);
+    background-color: #d7f9f6;
+}
+header {
+    background-color: white;
 }
 .artboard-14x-1-1 {
     position: relative;

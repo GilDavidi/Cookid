@@ -125,11 +125,6 @@
 
 
 const recomandedGroups = (pupils) => {
-
-
-    console.log(pupils);
-
-
     // Initialize group lists
     let group1 = [];
     let group2 = [];
@@ -137,106 +132,75 @@ const recomandedGroups = (pupils) => {
     let group4 = [];
     let group5 = [];
     let group6 = [];
+    let GroupIndex = 0;
 
 // Sort pupils by score in ascending order
     pupils.sort((a, b) => a.score - b.score);
-    let pupilsPerGroup = 1;
-    let index = 4
-    while (pupilsPerGroup === 1){
-        pupilsPerGroup = Math.floor(pupils.length / index);
-        index--;
+    let middle = Math.ceil(pupils.length / 2);
+    let array1 = pupils.slice(0, middle);
+    let array2 = pupils.slice(middle);
+    array2.sort((a, b) => b.score - a.score);
+    let arrayPairs = [];
+    for (let i = 0; (pupils.length / 2) > i; i++) {
+        arrayPairs[i] = [];
+        if (array1[i] !== undefined) {
+            arrayPairs[i][0] = array1[i];
+        }
+        if (array2[i] !== undefined) {
+            arrayPairs[i][1] = array2[i];
+        }
     }
+
+// check if the number of pupils is odd
     if (pupils.length % 2 !== 0) {
-        pupilsPerGroup+=1;
+        // add the middle element to the first group
+        group1.push(array1[array1.length - 1].id);
+        // remove the middle element from the arrayPairs
+        arrayPairs.pop();
     }
-    console.log("this is pupilsPerGroup")
-    console.log(pupilsPerGroup)
 
-// Iterate over groups
-    if (pupils.length < 4) {
-        // Iterate over pupils and add them to the first group
+    for (let i = 0; arrayPairs.length > i; i++) {
+        for (let j = 1; 6 >= j; j++) {
+            if (i >= arrayPairs.length) {
+                break;
+            }
 
-        for (let i = 0; i < pupils.length; i++) {
-            group1.push(pupils[i].id);
-        }
-    }
-    else if(pupils.length === 7){
-        for (let i = 0; i < 4; i++) {
-            group1.push(pupils[i].id);
-        }
-        for (let i = 0; i < 3; i++) {
-            group2.push(pupils[i].id);
-        }
-    }
-    else {
-        for (let i = 0; i < pupils.length; i++) {
-            const pupil = pupils[i];
-            let added = false;
-            if (pupilsPerGroup !== group1.length){
-                for (let i=0;i<pupilsPerGroup;i++){
-                    if (pupil === undefined)
-                        break;
-                    if (!added) {
-                        group1.push(pupil.id);
-                        added = true
-                    }
+            while (eval(`group${j}`).length < 4) {
+                if (i >= arrayPairs.length) {
+                    break;
                 }
-            }
-            if (pupilsPerGroup !== group2.length){
-                for (let i=0;i<pupilsPerGroup;i++){
-                    if (pupil === undefined)
-                        break;
-                    if (!added) {
-                        group2.push(pupil.id);
-                        added = true
-                    }
-                }
-            }
-            if (pupilsPerGroup !== group3.length){
-                for (let i=0;i<pupilsPerGroup;i++){
-                    if (pupil === undefined)
-                        break;
-                    if (!added) {
-                        group3.push(pupil.id);
-                        added = true
-                    }
-                }
-            }
-            if (pupilsPerGroup !== group4.length){
-                for (let i=0;i<pupilsPerGroup;i++){
-                    if (pupil === undefined)
-                        break;
-                    if (!added) {
-                        group4.push(pupil.id);
-                        added = true
-                    }
-                }
-            }
-            if (pupilsPerGroup !== group5.length){
-                for (let i=0;i<pupilsPerGroup;i++){
-                    if (pupil === undefined)
-                        break;
-                    if (!added) {
-                        group5.push(pupil.id);
-                        added = true
-                    }
-                }
-            }
-            if (pupilsPerGroup !== group6.length){
-                for (let i=0;i<pupilsPerGroup;i++){
-                    if (pupil === undefined)
-                        break;
-                    if (!added) {
-                        group6.push(pupil.id);
-                        added = true
-                    }
+                if (eval(`group${j}`)) {
+                    eval(`group${j}`).push(arrayPairs[i][0].id);
+                    eval(`group${j}`).push(arrayPairs[i][1].id);
+                    i++;
                 }
             }
         }
     }
-    console.log(group1, group2, group3, group4, group5, group6);
+
+    for (let i = 1; i <= 6; i++) {
+        if (eval(`group${i}`).length === 0) {
+            GroupIndex = i - 1;
+            break;
+        }
+    }
+    if (pupils.length ===7)
+    {
+        eval(`group${2}`).push(eval(`group${1}`)[4]);
+        eval(`group${1}`).pop()
+    }
+    else if (eval(`group${GroupIndex}`).length < 4) {
+        let extraPupils = eval(`group${GroupIndex}`);
+        for (let i = 1; GroupIndex > i; i++) {
+            for (let j = 0; j < (extraPupils.length / (GroupIndex - 1)); j++) {
+                eval(`group${i}`).push(extraPupils[j].id);
+            }
+            extraPupils.shift();
+        }
+        eval(`group${GroupIndex}`).length = 0;
+    }
     let groups = []
-        for (let i=1;i<=6;i++)
+    for (let i=1;i<=6;i++)
     {
         if(eval(`group${i}`)) {
             let group={};
@@ -245,8 +209,7 @@ const recomandedGroups = (pupils) => {
         }
     }
 
-
-    console.log(groups);
+    console.log(groups)
     return groups;
 }
 
