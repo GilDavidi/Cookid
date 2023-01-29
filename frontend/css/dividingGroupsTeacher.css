@@ -203,3 +203,9 @@ p
     text-align: center;
     color: red;
 }
+#yesBtn {
+    background-color: #007bff;
+}
+#noBtn {
+    background-color: #6c757d;
+}

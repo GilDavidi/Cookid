@@ -310,8 +310,15 @@ th,td {
 	cursor: pointer;
 }
 #yesBtn {
-	background-color: blue;
+	background-color: #007bff;
 }
 #noBtn {
-	background-color: red;
+	background-color: #6c757d;
+}
+
+#divLogs
+{
+	overflow:scroll;
+	height:20vh;
+	overflow:auto;
 }

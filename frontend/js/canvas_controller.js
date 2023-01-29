@@ -82,15 +82,21 @@ const updateColors =(playerColors) =>
 
  const startGame = () =>
 {
+
+
     if(isTeacher)
     {
         document.getElementById("turquoise").style.display = 'none';
+        socket.emit('getTheCurrentTime');
+
 
     }
     //for pupil remove the table log
     else
     {
         tableLogs.style.display = 'none';
+        document.getElementById("divLogs").style.display= 'none';
+        startTimer(10,0);
     }
     $.get(`${URL}/game/GetRequestPicture`)
         .done(imgURL => {
@@ -114,13 +120,11 @@ const clearColors= ()=>
         let table = document.getElementById("table-bordered");
         let rows = table.getElementsByTagName("tr");
         for (let i = rows.length-1; i > 0; i--) {
-            if(rows[i].id!="turquoise") {
                 table.removeChild(rows[i]);
-            }
         }
         let colorSelection = document.getElementById("ColorSelection");
-        while (colorSelection.firstChild) {
-            colorSelection.removeChild(colorSelection.firstChild);
+        while (colorSelection.children[1]) {
+            colorSelection.removeChild(colorSelection.children[1]);
         }
 }
 socket.on('updateColors',(playerColors)=>{
@@ -245,50 +249,70 @@ const color = (obj) => {
         }
     }
 //Timer JS
-// Calculate the time 10 minutes from now
-let deadline = new Date().getTime() + (10 * 60 * 1000);
 
+let time ={};
 // Update the timer every second
-setInterval(function() {
+function startTimer(minutes, seconds) {
     // Get the current time
     let currentTime = new Date().getTime();
 
-    // Calculate the time remaining
-    let timeRemaining = deadline - currentTime;
+    // Calculate the deadline
+    let deadline = currentTime + (minutes * 60 + seconds) * 1000;
 
-    // Convert the time remaining to minutes and seconds
-    let minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    // Set the interval to update the timer every second
+    let intervalId = setInterval(function() {
+        // Calculate the time remaining
+        let timeRemaining = deadline - new Date().getTime();
 
-    // Add a leading zero to seconds if less than 10
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
+        // Convert the time remaining to minutes and seconds
+        minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-    // Display the time remaining on the page
-    document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
+        // Add a leading zero to seconds if less than 10
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
 
-    if(minutes==7 && seconds ==0)
-    // if (minutes == 50)
+        time.seconds=seconds;
+        time.minutes=minutes;
+
+        // Display the time remaining on the page
+        document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
+        if(minutes==5 && seconds ==0)
+        {
+            let missionEnd={};
+            let image = canvas.toDataURL("image/png");
+            missionEnd.endMissionDetails={};
+            missionEnd.endMissionDetails.groupId=groupId;
+            missionEnd.endMissionDetails.img=image;
+            missionEnd.endMissionDetails.isTeacher = isTeacher;
+            console.log('mission end');
+            $.post(`${URL}/game/endMission`,missionEnd)
+                .done(linkEndMission =>
+                    {
+                        window.location.replace(linkEndMission);
+                    }
+
+                )
+                .fail((xhr, status, error) => {
+                    console.error("failed send to server " + error);
+                });
+            clearInterval(intervalId);
+        }
+    }, 1000);
+}
+
+socket.on('setTheCurrentTime',(time)=>{
+    console.log(time);
+    startTimer(time.minutes,time.seconds);
+})
+if(!isTeacher)
+{
+
+    socket.on('giveTimeToTeacher',()=>
     {
-        let missionEnd={};
-        let image = canvas.toDataURL("image/png");
-        missionEnd.endMissionDetails={};
-        missionEnd.endMissionDetails.groupId=groupId;
-        missionEnd.endMissionDetails.img=image;
-        missionEnd.endMissionDetails.isTeacher = isTeacher;
-        console.log('mission end');
-        $.post(`${URL}/game/endMission`,missionEnd)
-            .done(linkEndMission =>
-                {
-                    window.location.replace(linkEndMission);
-                }
-
-            )
-            .fail((xhr, status, error) => {
-                console.error("failed send to server " + error);
-            });
-    }
-}, 1000);
+        socket.emit('giveTimeToTeacherFromPupil',time);
+    });
+}
 
 
 

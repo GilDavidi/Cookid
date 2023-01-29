@@ -187,11 +187,17 @@ io.on('connection',(client) => {
                 .catch(err => {
                     console.error(err.message);
                 })
-
-
-
-
         });
+        client.on('getTheCurrentTime',()=>
+        {
+            const firstPupilSocket = pupilSockets.pupils[0].socketId;
+            io.to(firstPupilSocket).emit('giveTimeToTeacher');
+        });
+            client.on('giveTimeToTeacherFromPupil',(time)=>
+            {
+                io.to(teacherSocketId).emit('setTheCurrentTime',time);
+            });
+
     }
 );
 
