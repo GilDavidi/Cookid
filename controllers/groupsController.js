@@ -53,4 +53,5 @@ module.exports = {
         res.send(recommendedGroupsById);
 
     }
+
 }

@@ -26,11 +26,8 @@ const scoreStudent = (student) => {
         for (const neighbor of graph.get(student)) {
             if (!visited.has(neighbor.student)) {
                 currentRainbow.add(neighbor.color);
-               // if (currentRainbow.size === colors.length) {
                     count++;
-                //} else {
-                //    dfs(neighbor.student, visited, currentRainbow);
-               // }
+
                 currentRainbow.delete(neighbor.color);
             }
         }
