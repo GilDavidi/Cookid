@@ -168,8 +168,8 @@ io.on('connection',(client) => {
             switchSocketId(pupilDetails.id, client.id);
             client.join(pupilDetails.groupId);
         });
-        client.on('sendBoard', (canvasImg) => {
-            io.to('group1').emit('updateBoard', canvasImg);
+        client.on('sendBoard', (imgJSON) => {
+            io.to(imgJSON.group).emit('updateBoard', imgJSON.canvasImg);
         });
         client.on('askColor', (requestDetails) => {
             const pupilSocket = isPupilConnected(requestDetails.idPupilGive);
