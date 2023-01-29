@@ -39,14 +39,16 @@ module.exports = {
                 let [name, score] = playerString.split(" : ");
                 score = parseInt(score);
                 let connectionsPupil=mission.getPlayersWithoutName(name);
-                User.findOneAndUpdate({ user_name: name },
-                    { $inc: { score: score }, $push: { connections: { $each: connectionsPupil } } },
-                    { new: true },
-                    (err, user) => {
-                        if (err) {
-                            console.log(err.message);
-                        }
-                    });
+                if(req.body.endMissionDetails.isTeacher === "true") {
+                    User.findOneAndUpdate({user_name: name},
+                        {$inc: {score: score}, $push: {connections: {$each: connectionsPupil}}},
+                        {new: true},
+                        (err, user) => {
+                            if (err) {
+                                console.log(err.message);
+                            }
+                        });
+                }
 
             });
 
@@ -58,13 +60,19 @@ module.exports = {
             }
             let GroupId = mission.getGroupId();
             GroupId = GroupId[GroupId.length - 1];
-            await Game.create({date: today, players_scores: mission.getPlayers(), group_id: GroupId}, (error, doc) => {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log("Mission saved successfully", doc);
-                }
-            });
+            if(req.body.endMissionDetails.isTeacher === "true") {
+                await Game.create({
+                    date: today,
+                    players_scores: mission.getPlayers(),
+                    group_id: GroupId
+                }, (error, doc) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log("Mission saved successfully", doc);
+                    }
+                });
+            }
         }
         else {
             res.send(`${URL}/game/gameOverPupil.html?similarity=${similarity}`);
