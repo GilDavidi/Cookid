@@ -96,7 +96,9 @@ function drag(event) {
 }
 function joinGroup()
 {
-    socket.emit('joinGroupTeacher',event.target.id);
+    let _id= event.target.id;
+    let id = _id.slice(1);
+    socket.emit('joinGroupTeacher',id);
 }
 
 function goToPreviousGames()
@@ -219,14 +221,17 @@ function saveGroups() {
         let students = [];
         for (let j = 0; j < studentElements.length; j++) {
             let student ={};
+
             student.id=studentElements[j].id;
             student.name=studentElements[j].innerHTML;
             students.push(student);
         }
 
-        if(students.length>=4 && students.length<=6 )
+        if(students.length>=3 && students.length<=6 )
         {
-            $(`#${id}`).css('display','block');
+            let _id ="_";
+            _id+=id;
+            document.getElementById(_id).style.display='block';
         }
         else
         {

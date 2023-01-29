@@ -5,7 +5,7 @@ let groupId = urlParams.get('groupId');
 let userName = urlParams.get('userName');
 let isTeacher = urlParams.get('isTeacher');
 const tableLogs = document.getElementById("Logs");
-
+let imgJSON={};
 let playerJson={};
 playerJson.id=userId;
 playerJson.groupId=groupId;
@@ -198,9 +198,10 @@ const draw = () => {
         ctx.lineWidth = y;
         ctx.stroke();
         ctx.closePath();
-        canvasImg = canvas.toDataURL();
+         imgJSON.canvasImg= canvas.toDataURL();
+    imgJSON.group=groupId;
 
-    socket.emit('sendBoard',canvasImg);
+    socket.emit('sendBoard',imgJSON);
     };
 socket.on('updateBoard',(canvasImg)=>{
     let img = new Image();

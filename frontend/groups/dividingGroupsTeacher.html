@@ -10,12 +10,7 @@
     <link rel="stylesheet" href="../css/dividingGroupsTeacher.css">
     <!-- Favicon -->
     <link href="../favicon.ico" rel="icon" />
-    <script
-            src="https://code.jquery.com/jquery-3.6.1.js"
-            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-            crossorigin="anonymous"></script>
-    <script src="../socket.io/socket.io.js"></script>
-    <script src="../js/dividingGroupsTeacher.js"></script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -37,14 +32,14 @@
             <h3>קבוצה 1</h3>
             <ul></ul>
             <div class="input-section">
-                <input type="submit" class="joinButton" value="הצטרף לקבוצה" onclick="joinGroup()" id="1">
+                <input type="submit" class="joinButton" value="הצטרף לקבוצה" onclick="joinGroup()" id="_1">
             </div>
         </div>
         <div class="group" id="group2" ondrop="drop(event)"  ondragover="allowDrop(event)" >
             <h3>קבוצה 2</h3>
             <ul></ul>
             <div class="input-section">
-                <input type="submit" class="joinButton" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="2">
+                <input type="submit" class="joinButton" value="הצטרף לקבוצה" onclick="joinGroup()" id="_2">
             </div>
 
         </div>
@@ -52,28 +47,28 @@
             <h3>קבוצה 3</h3>
             <ul></ul>
             <div class="input-section">
-                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="3">
+                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup()" id="_3">
             </div>
         </div>
         <div class="group"  id="group4"ondrop="drop(event)"  ondragover="allowDrop(event)">
             <h3>קבוצה 4</h3>
             <ul></ul>
             <div class="input-section">
-                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="4">
+                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup()" id="_4">
             </div>
         </div>
         <div class="group"  id="group5"ondrop="drop(event)"  ondragover="allowDrop(event)">
             <h3>קבוצה 5</h3>
             <ul></ul>
             <div class="input-section">
-                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="5">
+                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup()" id="_5">
             </div>
         </div>
         <div class="group" id="group6" ondrop="drop(event)"   ondragover="allowDrop(event)" >
             <h3>קבוצה 6</h3>
             <ul></ul>
             <div class="input-section">
-                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup(this.id)" id="6">
+                <input class="joinButton" type="submit" value="הצטרף לקבוצה" onclick="joinGroup()" id="_6">
             </div>
         </div>
     </div>
@@ -101,6 +96,12 @@
         </div>
     </div>
 </div>
+<script
+        src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
+<script src="../socket.io/socket.io.js"></script>
+<script src="../js/dividingGroupsTeacher.js"></script>
 </body>
 
 </html>
