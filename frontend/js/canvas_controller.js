@@ -88,8 +88,7 @@ const updateColors =(playerColors) =>
     {
         document.getElementById("turquoise").style.display = 'none';
         socket.emit('getTheCurrentTime');
-
-
+        document.getElementById("backToGroups").style.display ='block';
     }
     //for pupil remove the table log
     else
@@ -98,7 +97,7 @@ const updateColors =(playerColors) =>
         document.getElementById("divLogs").style.display= 'none';
         startTimer(10,0);
     }
-    $.get(`${URL}/game/GetRequestPicture`)
+    $.get(`${URL}/game/GetRequestPicture?group=${groupId}`)
         .done(imgURL => {
             $('#imageContainerId').attr('src',imgURL);
 
@@ -107,7 +106,7 @@ const updateColors =(playerColors) =>
             console.error("failed send to server " + error);
         });
 
-    $.get(`${URL}/game/getPlayersColors`)
+    $.get(`${URL}/game/getPlayersColors?group=${groupId}`)
         .done(playerColors => {
             updateColors(playerColors);
         })
@@ -278,7 +277,7 @@ function startTimer(minutes, seconds) {
 
         // Display the time remaining on the page
         document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
-        if(minutes==6 && seconds ==30)
+        if(minutes==0 && seconds ==0)
         {
             let missionEnd={};
             let image = canvas.toDataURL("image/png");
@@ -401,7 +400,10 @@ socket.on('updateLogTable',(message)=> {
 });
 
 
-
+const goToGroupsPage =()=>
+{
+    window.location.replace(`${URL}/groups/dividingGroupsTeacher.html?alreadyWasHere=true`)
+}
 
 
 
