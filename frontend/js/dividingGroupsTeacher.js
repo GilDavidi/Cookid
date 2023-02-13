@@ -1,5 +1,7 @@
 const socket = io();
 const URL = window.location.origin;
+let urlParams = new URLSearchParams(window.location.search);
+let alreadyWasHere = urlParams.get('alreadyWasHere');
 
 
 socket.emit('teacherConnected');
@@ -10,53 +12,74 @@ socket.on('gameControlPage',link=>{window.location.replace(link)});
 $("document").ready(() => {
 
     let table = document.getElementById('student-table');
-    const isStudentExist =(name) =>
+    // the teacher back from game page
+    if(alreadyWasHere)
     {
-        const rows = table.querySelectorAll('tr');
-        for (const row of rows) {
-            if (row.textContent.includes(name)) {
-               return true;
-            }
-        }
-        return false;
-
-    };
-    const updateTable =(pupilList) =>
-    {
-
-        // loop through the array
-        for (let i = 0; i < pupilList.pupil.length; i++) {
-            // create a new row
-            if(isStudentExist(pupilList.pupil[i].name)== false) {
-
-                let row = table.insertRow();
-
-                // create a new cell
-                let cell = row.insertCell();
+        document.getElementById("Buttons").style.display='none';
+        socket.emit('getSavedGroups');
+        socket.on('setSavedGroups',(groups)=> {
+            const newJson = Object.entries(groups).map(([key, value]) => {
+                const group = key.slice(-1);
+                const members = value.map(member => `${member.name}:${member.id}`);
+                return {[group]: members};
+            });
+            setGroupsOnLists(newJson);
 
 
-                // set the cell as draggable and add the ondragstart event handler
-                cell.setAttribute("draggable", "true");
-                cell.setAttribute("ondragstart", "drag(event)");
-                cell.setAttribute("id", pupilList.pupil[i].id);
 
-
-                // set the cell content
-                cell.innerHTML = pupilList.pupil[i].name;
-            }
-        }
+        })
     }
+    else
+    {
+        const isStudentExist =(name) =>
+        {
+            const rows = table.querySelectorAll('tr');
+            for (const row of rows) {
+                if (row.textContent.includes(name)) {
+                    return true;
+                }
+            }
+            return false;
 
-    $.get(`${URL}/groups/getAllPupilInTheGame`)
-        .done((pupilList) =>{
+        };
+        const updateTable =(pupilList) =>
+        {
+
+            // loop through the array
+            for (let i = 0; i < pupilList.pupil.length; i++) {
+                // create a new row
+                if(isStudentExist(pupilList.pupil[i].name)== false) {
+
+                    let row = table.insertRow();
+
+                    // create a new cell
+                    let cell = row.insertCell();
+
+
+                    // set the cell as draggable and add the ondragstart event handler
+                    cell.setAttribute("draggable", "true");
+                    cell.setAttribute("ondragstart", "drag(event)");
+                    cell.setAttribute("id", pupilList.pupil[i].id);
+
+
+                    // set the cell content
+                    cell.innerHTML = pupilList.pupil[i].name;
+                }
+            }
+        }
+
+        $.get(`${URL}/groups/getAllPupilInTheGame`)
+            .done((pupilList) =>{
                 updateTable(pupilList);
             })
-        .catch((err)=>{
-            console.log(err.message);}
-        )
-    socket.on('updatePupilList',(pupilList)=>{
-        updateTable(pupilList);
-    });
+            .catch((err)=>{
+                console.log(err.message);}
+            )
+        socket.on('updatePupilList',(pupilList)=>{
+            updateTable(pupilList);
+        });
+    }
+
 
 
 
@@ -119,24 +142,36 @@ const clearRowFromTable =(studentName) =>
         }
     }
 };
+
+function setGroupsOnLists(groups)
+{
+    groups.forEach(function(group) {
+        Object.keys(group).forEach((key) =>{
+            const groupId = "group" + key;
+            const groupElement = document.getElementById(groupId);
+            const studentList = groupElement.getElementsByTagName("ul")[0];
+            studentList.innerHTML = ""; // clear existing students
+            group[key].forEach(function(student) {
+                const studentName = student.split(':')[0];
+                const studentId = student.split(':')[1];
+                studentList.innerHTML += `<li ondragstart='drag(event)' id=${studentId}>` + studentName + "</li>";
+                if(alreadyWasHere)
+                {
+                    let _id ="_";
+                    _id+=key;
+                    document.getElementById(_id).style.display='block';
+                }
+                clearRowFromTable(studentName);
+            });
+        });
+    });
+}
+
 function recommendedGroups()
 {
     $.get(`${URL}/groups/getRecommendedGroups`)
         .done((groups) =>{
-                groups.forEach(function(group) {
-                    Object.keys(group).forEach((key) =>{
-                        const groupId = "group" + key;
-                        const groupElement = document.getElementById(groupId);
-                        const studentList = groupElement.getElementsByTagName("ul")[0];
-                        studentList.innerHTML = ""; // clear existing students
-                        group[key].forEach(function(student) {
-                            const studentName = student.split(':')[0];
-                            const studentId = student.split(':')[1];
-                            studentList.innerHTML += `<li ondragstart='drag(event)' id=${studentId}>` + studentName + "</li>";
-                            clearRowFromTable(studentName);
-                        });
-                    });
-                });
+            setGroupsOnLists(groups);
         })
         .catch((err)=>{
             console.log(err.message);}

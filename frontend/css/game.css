@@ -322,3 +322,21 @@ th,td {
 	height:20vh;
 	overflow:auto;
 }
+
+.input-section input[type="submit"] {
+	background-color: #007068;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	padding: 12px 24px;
+	font-size: 18px;
+	font-weight: bold;
+	cursor: pointer;
+	position: absolute;
+	top:2%;
+	right: 0.5%;
+}
+#backToGroups
+{
+	display: none;
+}

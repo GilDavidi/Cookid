@@ -52,6 +52,11 @@ module.exports = {
         }
         res.send(recommendedGroupsById);
 
+    },
+    clearGroups:(req,res)=> {
+        Groups =[];
+        pupilInTheGame={};
+        pupilInTheGame.pupil=[];
     }
 
 }

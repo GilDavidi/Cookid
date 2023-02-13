@@ -10,6 +10,7 @@ module.exports= class MissionPaint {
     successRate=0;
     ReqPicture="";
     groupId="";
+    isisMissionEnd=false;
     constructor(groupId,groupPlayers){
         this.groupId= groupId;
         let arrayPlayers= [];
@@ -37,6 +38,7 @@ module.exports= class MissionPaint {
 
     }
     getGroupId = () => {return this.groupId}
+    getMissionStatus = () => {return this.isisMissionEnd}
     getPlayers = () => {
         let players_scores = "";
         for (const value of  Object.values(this.Players)){

@@ -90,6 +90,7 @@ const switchSocketId =(id,socketId)=>
                 pupil.socketId = socketId;
         });
 }
+let savedGroups ={};
 io.on('connection',(client) => {
         // Save the socket id in the session
         client.handshake.session.socketId = client.id;
@@ -135,6 +136,7 @@ io.on('connection',(client) => {
             console.log("The Teacher connected")
         });
         client.on('saveGroups', (groups) => {
+            savedGroups=groups;
             for (const key in groups) {
                 if (groups.hasOwnProperty(key) && groups[key].length) {
                     const element = groups[key];
@@ -193,10 +195,15 @@ io.on('connection',(client) => {
             const firstPupilSocket = pupilSockets.pupils[0].socketId;
             io.to(firstPupilSocket).emit('giveTimeToTeacher');
         });
-            client.on('giveTimeToTeacherFromPupil',(time)=>
-            {
+        client.on('giveTimeToTeacherFromPupil',(time)=>
+        {
                 io.to(teacherSocketId).emit('setTheCurrentTime',time);
-            });
+        });
+        client.on('getSavedGroups',()=>
+        {
+            client.emit('setSavedGroups',savedGroups);
+        }
+    )
 
     }
 );
