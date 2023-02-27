@@ -277,7 +277,7 @@ function startTimer(minutes, seconds) {
 
         // Display the time remaining on the page
         document.getElementById("timer").innerHTML = "הזמן שנותר: " + minutes + ":" + seconds;
-        if(minutes==0 && seconds ==0)
+        if(minutes==9 && seconds ==0)
         {
             let missionEnd={};
             let image = canvas.toDataURL("image/png");
