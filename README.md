@@ -42,7 +42,7 @@ password : 1234G
    or       
    עומר אדם   
    or    
-   עומר לוי  
+   שלמה אברהמי  
    or    
    בר פירמן  
    or  
@@ -56,8 +56,9 @@ password : 1234G
     or   
    יצחק כהן    
     or   
-   
-    
+   עומר לוי 
+    or
+    שלום אסייג
 
 2. wait until all student connect
 3. wait until you insert to your team by the teacher
@@ -67,20 +68,10 @@ password : 1234G
 5.2 you can see the color available on the right bootom screen.  
 5.3 the colors of the team's members used is in the bottom left side in a table next to their name.   
 5.4 you can ask from the system a color you don't have.  
-5.5the system will send a request for team member  who have the color  
+5.5 the system will send a request for team member  who have the color  
 5.6 he needs tho choose if he approves or declines the request 
 6.  after the game you will see the accurance percent of your image  
     to the original image 
-
-    
-
-
-
-
-
-
-
-
 
 link to the app
 https://cookid.onrender.com
